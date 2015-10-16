@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -9,6 +10,7 @@ namespace GraphDesigner
     class GraphClass
     {
         private List<NodeClass> graphNodes;
+        private List<NodeClass> shortPath;
 
         private Color nodeColor;
         private Color edgeColor;
@@ -197,6 +199,36 @@ namespace GraphDesigner
                     result = true;
             }
             return result;
+        }
+
+        public void drawShortPath(ArrayList path, Graphics graphic)
+        {
+            int pos = 0;
+            shortPath = new List<NodeClass>();
+            Pen pen = new Pen(Color.Red);
+            pen.Width = 3;
+
+            for (int k = 0; k < path.Count; ++k)
+            {
+                pos = (int)path[k];
+                shortPath.Add(graphNodes[pos]);
+            }
+
+           for (int i = 0; i < shortPath.Count - 1; ++i)
+            {
+                
+                foreach(EdgeClass edge in shortPath[i].nodeEdges)
+                {
+                    if (edge.NextNode == shortPath[i + 1])
+                    {
+                        // draw edges
+                                // draw line with arrow at the end
+                                drawArrowhead(graphic, pen, shortPath[i].NodePosition, edge.NextNode.NodePosition, 0.03);
+                    }
+                }
+                shortPath[i].drawNode(graphic, Color.Red, Color.White);
+            }
+            shortPath[shortPath.Count - 1].drawNode(graphic, Color.Red, Color.White);
         }
     }
 }

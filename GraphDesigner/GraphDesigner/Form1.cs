@@ -185,6 +185,7 @@ namespace GraphDesigner
                 if (path.Count > 0)
                 {
                     // show path on paintBox
+                    graph.drawShortPath(path, paintBox);
                 }
                 nodeClickedFirst = null;
                 nodeClickedSecond = null;
