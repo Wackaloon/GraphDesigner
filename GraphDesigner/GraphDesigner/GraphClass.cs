@@ -71,28 +71,6 @@ namespace GraphDesigner
             return GraphNodes.Count;
         }
 
-        public void drawGraph(Graphics graphic)
-        {
-            Pen pen = new Pen(edgeColor);
-            pen.Width = 3;
-
-            graphic.Clear(Color.White);
-            // draw edges
-            foreach (NodeClass node in GraphNodes)
-            {
-                foreach (EdgeClass edge in node.nodeEdges)
-                {
-                    // draw line with arrow at the end
-                    drawArrowhead(graphic, pen, node.NodePosition, edge.NextNode.NodePosition, 0.03);
-                }
-            }
-            // draw nodes
-            foreach (NodeClass node in GraphNodes)
-            {
-                node.drawNode(graphic, nodeColor, Color.White);
-            }
-        }
-
         public NodeClass whichNodeWasClicked(Point click)
         {
             //find which node was clicked by its position
@@ -145,27 +123,7 @@ namespace GraphDesigner
             }
         }
 
-        private void drawArrowhead(Graphics gr, Pen pen,
-           Point start, Point end, double length)
-        {
-            // find coeff for normalized direction
-            double deltaY = (end.Y - start.Y);
-            double deltaX = (end.X - start.X);
-            deltaX *= deltaX;
-            deltaY *= deltaY;
 
-            double lenghtOfLine = Math.Sqrt(deltaY + deltaX);
-            double lyambda = lenghtOfLine / 15;
-
-            // find coordinates of dot on edge which just before node circle starts
-            int x = (int)((start.X + lyambda * end.X) / (1 + lyambda));
-            int y = (int)((start.Y + lyambda * end.Y) / (1 + lyambda));
-
-            // arrow must be independent from pen's size, LineCap gives too small arrow 
-            AdjustableArrowCap bigArrow = new AdjustableArrowCap(5, 5);
-            pen.CustomEndCap = bigArrow;
-            gr.DrawLine(pen, start.X, start.Y, x, y);
-        }
 
         public void deleteNode(NodeClass deleteNode)
         {
@@ -201,13 +159,35 @@ namespace GraphDesigner
             return result;
         }
 
-        public void drawShortPath(ArrayList path, Graphics graphic)
+        public void drawGraph(Graphics graphic)
+        {
+            Pen pen = new Pen(edgeColor);
+            pen.Width = 3;
+
+            graphic.Clear(Color.White);
+            // draw edges
+            foreach (NodeClass node in GraphNodes)
+            {
+                foreach (EdgeClass edge in node.nodeEdges)
+                {
+                    // draw line with arrow at the end
+                    drawArrowhead(graphic, pen, node.NodePosition, edge.NextNode.NodePosition, 0.03);
+                }
+            }
+            // draw nodes
+            foreach (NodeClass node in GraphNodes)
+            {
+                node.drawNode(graphic, nodeColor, Color.White);
+            }
+        }
+
+        public void drawShortPath(ArrayList path, Graphics graphic, Color color)
         {
             int pos = 0;
             shortPath = new List<NodeClass>();
-            Pen pen = new Pen(Color.Red);
+            Pen pen = new Pen(color);
             pen.Width = 3;
-
+            
             for (int k = 0; k < path.Count; ++k)
             {
                 pos = (int)path[k];
@@ -221,14 +201,36 @@ namespace GraphDesigner
                 {
                     if (edge.NextNode == shortPath[i + 1])
                     {
-                        // draw edges
-                                // draw line with arrow at the end
-                                drawArrowhead(graphic, pen, shortPath[i].NodePosition, edge.NextNode.NodePosition, 0.03);
+                        // draw line with arrow at the end
+                        drawArrowhead(graphic, pen, shortPath[i].NodePosition, edge.NextNode.NodePosition, 0.03);
                     }
                 }
                 shortPath[i].drawNode(graphic, Color.Red, Color.White);
             }
             shortPath[shortPath.Count - 1].drawNode(graphic, Color.Red, Color.White);
+        }
+
+
+        private void drawArrowhead(Graphics gr, Pen pen,
+                                   Point start, Point end, double length)
+        {
+            // find coeff for normalized direction
+            double deltaY = (end.Y - start.Y);
+            double deltaX = (end.X - start.X);
+            deltaX *= deltaX;
+            deltaY *= deltaY;
+
+            double lenghtOfLine = Math.Sqrt(deltaY + deltaX);
+            double lyambda = lenghtOfLine / 15;
+
+            // find coordinates of dot on edge which just before node circle starts
+            int x = (int)((start.X + lyambda * end.X) / (1 + lyambda));
+            int y = (int)((start.Y + lyambda * end.Y) / (1 + lyambda));
+
+            // arrow must be independent from pen's size, LineCap gives too small arrow 
+            AdjustableArrowCap bigArrow = new AdjustableArrowCap(5, 5);
+            pen.CustomEndCap = bigArrow;
+            gr.DrawLine(pen, start.X, start.Y, x, y);
         }
     }
 }

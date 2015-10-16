@@ -159,6 +159,7 @@ namespace GraphDesigner
 
         private void shortWayFind(MouseEventArgs e)
         {
+            //find which nodes was clicked
             if (nodeClickedFirst == null)
             {
                 nodeClickedFirst = graph.whichNodeWasClicked(new Point(e.X, e.Y));
@@ -176,7 +177,7 @@ namespace GraphDesigner
                 }
             }
 
-
+            // if two nodes was clicked - do something
             if (nodeClickedFirst != null && nodeClickedSecond != null)
             {
                 shortWay.SizeOfNodes = graph.numberOfNodes();
@@ -185,12 +186,10 @@ namespace GraphDesigner
                 if (path.Count > 0)
                 {
                     // show path on paintBox
-                    graph.drawShortPath(path, paintBox);
+                    graph.drawShortPath(path, paintBox, Color.LawnGreen);
                 }
                 nodeClickedFirst = null;
                 nodeClickedSecond = null;
-                //graph.drawGraph(paintBox);
-
             }
         }
 

@@ -16,6 +16,36 @@ namespace GraphDesigner
 
         private const int sizeOfNode = 30;
 
+        public int NodeNumber
+        {
+            get
+            {
+                return nodeNumber;
+            }
+            set
+            {
+                nodeNumber = value;
+            }
+        }
+
+        public Point NodePosition
+        {
+            get
+            {
+                return nodePosition;
+            }
+            set
+            {
+                nodePosition = value;
+            }
+        }
+
+        public NodeClass(Point positionOnMap, int number)
+        {
+            this.NodePosition = positionOnMap;
+            this.nodeNumber = number;
+            nodeEdges = new List<EdgeClass>();
+        }
 
         public void addEdge(NodeClass nextNode)
         {
@@ -73,37 +103,6 @@ namespace GraphDesigner
             return (result < sizeOfNode/2) ? true : false;
         }
 
-        public int NodeNumber
-        {
-            get
-            {
-                return nodeNumber;
-            }
 
-            set
-            {
-                nodeNumber = value;
-            }
-        }
-
-        public Point NodePosition
-        {
-            get
-            {
-                return nodePosition;
-            }
-
-            set
-            {
-                nodePosition = value;
-            }
-        }
-
-        public NodeClass(Point positionOnMap, int number)
-        {
-            this.NodePosition = positionOnMap;
-            this.nodeNumber = number;
-            nodeEdges = new List<EdgeClass>();
-        }
     }
 }

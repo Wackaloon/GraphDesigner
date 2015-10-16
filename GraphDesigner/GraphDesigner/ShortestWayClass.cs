@@ -28,10 +28,6 @@ namespace GraphDesigner
             }
         }
 
-        public ShortestWayClass()
-        {
-        }
-
         public void resetParams()
         {
             d = new int[sizeOfNodes];
@@ -48,12 +44,16 @@ namespace GraphDesigner
 
         public ArrayList findShortWay(NodeClass fromThis, NodeClass toThis, GraphClass graph)
         {
-
+            // Dijkstra's algorithm
+            // d - minimum weights of ways to other nodes
+            // u - marks of visited nodes
+            // p - parent of each node, its necessary for back way finding
             d[fromThis.NodeNumber] = 0;
 
 
             for (int i = 0; i < sizeOfNodes; ++i)
             {
+                // weights to every node is infinite from the start
                 int v = -1;
                 for (int j = 0; j < sizeOfNodes; ++j)
                     if (!u[j] && (v == -1 || d[j] < d[v]))
@@ -64,6 +64,7 @@ namespace GraphDesigner
 
                 for (int j = 0; j < graph.GraphNodes[v].nodeEdges.Count(); ++j)
                 {
+                    // if current way have lower weight sum to the next node - set new weight and parent
                     int to = graph.GraphNodes[v].nodeEdges[j].NextNode.NodeNumber; 
                     int len = graph.GraphNodes[v].nodeEdges[j].Weight; 
                     if (d[v] + len < d[to])
@@ -73,38 +74,14 @@ namespace GraphDesigner
                     }
                 }
             }
-
+            // find a way back from end to start and reverse it
             ArrayList path = new ArrayList(); ;
             for (int v = toThis.NodeNumber; v != fromThis.NodeNumber; v = p[v])
                 path.Add(v);
             path.Add(fromThis.NodeNumber);
             path.Reverse();
 
-
             return path;
-        }
-    }
-
-    struct ways
-    {
-        public int nodeNumber;
-        public int weight;
-        public ways(int node, int mweight)
-        {
-            nodeNumber = node;
-            weight = mweight;
-
-        }
-    }
-    struct backWay
-    {
-        public int nodeNumber;
-        public int previousNode;
-
-        public backWay(int node, int backNode)
-        {
-            nodeNumber = node;
-            previousNode = backNode;
         }
     }
 }
