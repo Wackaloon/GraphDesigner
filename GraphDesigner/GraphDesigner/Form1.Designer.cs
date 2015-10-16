@@ -33,6 +33,7 @@
             this.pictureBoxGraph = new System.Windows.Forms.PictureBox();
             this.buttonDeleteNode = new System.Windows.Forms.Button();
             this.buttonDeleteEdge = new System.Windows.Forms.Button();
+            this.buttonShortWay = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +59,7 @@
             // 
             // pictureBoxGraph
             // 
-            this.pictureBoxGraph.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pictureBoxGraph.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBoxGraph.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxGraph.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxGraph.Name = "pictureBoxGraph";
@@ -87,11 +88,22 @@
             this.buttonDeleteEdge.UseVisualStyleBackColor = true;
             this.buttonDeleteEdge.Click += new System.EventHandler(this.buttonDeleteEdge_Click);
             // 
+            // buttonShortWay
+            // 
+            this.buttonShortWay.Location = new System.Drawing.Point(1010, 131);
+            this.buttonShortWay.Name = "buttonShortWay";
+            this.buttonShortWay.Size = new System.Drawing.Size(75, 23);
+            this.buttonShortWay.TabIndex = 5;
+            this.buttonShortWay.Text = "Short Way";
+            this.buttonShortWay.UseVisualStyleBackColor = true;
+            this.buttonShortWay.Click += new System.EventHandler(this.buttonShortWay_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1099, 648);
+            this.Controls.Add(this.buttonShortWay);
             this.Controls.Add(this.buttonDeleteEdge);
             this.Controls.Add(this.buttonDeleteNode);
             this.Controls.Add(this.pictureBoxGraph);
@@ -112,6 +124,7 @@
         private System.Windows.Forms.PictureBox pictureBoxGraph;
         private System.Windows.Forms.Button buttonDeleteNode;
         private System.Windows.Forms.Button buttonDeleteEdge;
+        private System.Windows.Forms.Button buttonShortWay;
     }
 }
 

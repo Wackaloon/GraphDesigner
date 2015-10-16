@@ -1,16 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GraphDesigner
 {
-    enum stateEnum{ stateNodeAdding, stateEdgeAdding, stateNodeDeleting, stateEdgeDeleting}
+    enum stateEnum{ stateNodeAdding, stateEdgeAdding, stateNodeDeleting, stateEdgeDeleting, stageShortWayFinding}
     public partial class Form1 : Form
     {
 
@@ -18,6 +14,7 @@ namespace GraphDesigner
         List<Point> list = new List<Point>();
         stateEnum stateOfForm = stateEnum.stateNodeAdding;
         GraphClass graph = new GraphClass();
+        ShortestWayClass shortWay = new ShortestWayClass();
         Graphics paintBox = null;
         NodeClass nodeClickedFirst = null;
         NodeClass nodeClickedSecond = null;
@@ -50,6 +47,11 @@ namespace GraphDesigner
             stateOfForm = stateEnum.stateEdgeDeleting;
         }
 
+        private void buttonShortWay_Click(object sender, EventArgs e)
+        {
+            stateOfForm = stateEnum.stageShortWayFinding;
+        }
+
         private void pictureBoxGraph_MouseClick(object sender, MouseEventArgs e)
         {
             switch (stateOfForm)
@@ -65,6 +67,9 @@ namespace GraphDesigner
                     break;
                 case stateEnum.stateNodeDeleting:
                     deleteNode(e);
+                    break;
+                case stateEnum.stageShortWayFinding:
+                    shortWayFind(e);
                     break;
             }
             
@@ -150,5 +155,44 @@ namespace GraphDesigner
         {
             graph.drawGraph(paintBox);
         }
+
+
+        private void shortWayFind(MouseEventArgs e)
+        {
+            if (nodeClickedFirst == null)
+            {
+                nodeClickedFirst = graph.whichNodeWasClicked(new Point(e.X, e.Y));
+                if (nodeClickedFirst != null)
+                    nodeClickedFirst.drawNode(paintBox, Color.Black, Color.Green);
+            }
+
+            else
+            {
+                if (nodeClickedSecond == null)
+                {
+                    nodeClickedSecond = graph.whichNodeWasClicked(new Point(e.X, e.Y));
+                    if (nodeClickedSecond != null)
+                        nodeClickedSecond.drawNode(paintBox, Color.Black, Color.Green);
+                }
+            }
+
+
+            if (nodeClickedFirst != null && nodeClickedSecond != null)
+            {
+                shortWay.SizeOfNodes = graph.numberOfNodes();
+                shortWay.resetParams();
+                ArrayList path = shortWay.findShortWay(nodeClickedFirst, nodeClickedSecond, graph);
+                if (path.Count > 0)
+                {
+                    // show path on paintBox
+                }
+                nodeClickedFirst = null;
+                nodeClickedSecond = null;
+                //graph.drawGraph(paintBox);
+
+            }
+        }
+
+
     }
 }

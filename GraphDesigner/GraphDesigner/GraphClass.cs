@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GraphDesigner
 {
@@ -41,21 +39,34 @@ namespace GraphDesigner
             }
         }
 
+        internal List<NodeClass> GraphNodes
+        {
+            get
+            {
+                return graphNodes;
+            }
+
+            set
+            {
+                graphNodes = value;
+            }
+        }
+
         public GraphClass()
         {
-            graphNodes = new List<NodeClass>();
+            GraphNodes = new List<NodeClass>();
             nodeColor = Color.Black;
             edgeColor = Color.Gray;
         }
 
         public void addNodeToList(NodeClass node)
         {
-            graphNodes.Add(node);
+            GraphNodes.Add(node);
         }
 
         public int numberOfNodes()
         {
-            return graphNodes.Count;
+            return GraphNodes.Count;
         }
 
         public void drawGraph(Graphics graphic)
@@ -65,7 +76,7 @@ namespace GraphDesigner
 
             graphic.Clear(Color.White);
             // draw edges
-            foreach (NodeClass node in graphNodes)
+            foreach (NodeClass node in GraphNodes)
             {
                 foreach (EdgeClass edge in node.nodeEdges)
                 {
@@ -74,7 +85,7 @@ namespace GraphDesigner
                 }
             }
             // draw nodes
-            foreach (NodeClass node in graphNodes)
+            foreach (NodeClass node in GraphNodes)
             {
                 node.drawNode(graphic, nodeColor, Color.White);
             }
@@ -84,7 +95,7 @@ namespace GraphDesigner
         {
             //find which node was clicked by its position
             NodeClass result = null;
-            foreach(NodeClass node in graphNodes)
+            foreach(NodeClass node in GraphNodes)
             {
                 if (node.nodeWasClicked(click))
                     result = node;
@@ -102,7 +113,7 @@ namespace GraphDesigner
 
             double range = 0;
 
-            foreach (NodeClass node in graphNodes)
+            foreach (NodeClass node in GraphNodes)
             {
                 foreach (EdgeClass edge in node.nodeEdges)
                 {
@@ -111,8 +122,8 @@ namespace GraphDesigner
                     C = edge.NextNode.NodePosition;
                     B = node.NodePosition;
 
-                    range = Math.Abs((B.Y - C.Y) * A.X + (C.X - B.X)*A.Y + (B.X * C.Y - C.X * B.Y)) 
-                        / Math.Sqrt((B.Y-C.Y) * (B.Y - C.Y) + (C.X - B.X) * (C.X - B.X));
+                    range = Math.Abs( (B.Y - C.Y) * A.X + (C.X - B.X)*A.Y + (B.X * C.Y - C.X * B.Y) ) 
+                          / Math.Sqrt( (B.Y-C.Y) * (B.Y - C.Y) + (C.X - B.X) * (C.X - B.X) );
 
                     if (range < 8)
                     {
@@ -121,14 +132,12 @@ namespace GraphDesigner
                     }
                 }
             }
-
-
             return result;
         }
 
         public void deleteEdge(EdgeClass deleteEdge)
         {
-            foreach (NodeClass node in graphNodes)
+            foreach (NodeClass node in GraphNodes)
             {
                 node.nodeEdges.Remove(deleteEdge);
             }
@@ -161,7 +170,7 @@ namespace GraphDesigner
 
             EdgeClass deleteEdge = null;
             // find edge to deleting node in other nodes
-            foreach (NodeClass node in graphNodes)
+            foreach (NodeClass node in GraphNodes)
             {
                 foreach (EdgeClass edge in node.nodeEdges)
                 {
@@ -174,7 +183,7 @@ namespace GraphDesigner
                 node.nodeEdges.Remove(deleteEdge);
             }
             // delete node by itself
-            graphNodes.Remove(deleteNode);
+            GraphNodes.Remove(deleteNode);
         }
 
 
