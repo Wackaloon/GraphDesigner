@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphDesigner
 {
@@ -65,7 +60,7 @@ namespace GraphDesigner
                 for (int j = 0; j < graph.GraphNodes[v].nodeEdges.Count(); ++j)
                 {
                     // if current way have lower weight sum to the next node - set new weight and parent
-                    int to = graph.GraphNodes[v].nodeEdges[j].NextNode.NodeNumber; 
+                    int to = graph.findNodeIndexByNodeNumber(graph.GraphNodes[v].nodeEdges[j].NextNode.NodeNumber); 
                     int len = graph.GraphNodes[v].nodeEdges[j].Weight; 
                     if (d[v] + len < d[to])
                     {
@@ -76,7 +71,8 @@ namespace GraphDesigner
             }
             // find a way back from end to start and reverse it
             ArrayList path = new ArrayList(); ;
-            for (int v = toThis.NodeNumber; v != fromThis.NodeNumber; v = p[v])
+            for (int v = graph.findNodeIndexByNodeNumber(toThis.NodeNumber); 
+                     v != graph.findNodeIndexByNodeNumber(fromThis.NodeNumber); v = p[v])
                 path.Add(v);
             path.Add(fromThis.NodeNumber);
             path.Reverse();

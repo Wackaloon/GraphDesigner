@@ -14,6 +14,14 @@ namespace GraphDesigner
 
         private Color nodeColor;
         private Color edgeColor;
+        private Color shortPathColor;
+        private Color selectedNodeColor;
+
+        private ShortestWayClass shortWay;
+
+        private int nodeNumberCounter;
+
+        Graphics graphic;
 
         public Color NodeColor
         {
@@ -54,28 +62,148 @@ namespace GraphDesigner
             }
         }
 
+        public Color ShortPathColor
+        {
+            get
+            {
+                return shortPathColor;
+            }
+
+            set
+            {
+                shortPathColor = value;
+            }
+        }
+
+        public Graphics Graphic
+        {
+            get
+            {
+                return graphic;
+            }
+
+            set
+            {
+                graphic = value;
+            }
+        }
+
+        public Color SelectedNodeColor
+        {
+            get
+            {
+                return selectedNodeColor;
+            }
+
+            set
+            {
+                selectedNodeColor = value;
+            }
+        }
+
         public GraphClass()
         {
             GraphNodes = new List<NodeClass>();
+            shortWay = new ShortestWayClass();
             nodeColor = Color.Black;
             edgeColor = Color.Gray;
+            shortPathColor = Color.LawnGreen;
+            selectedNodeColor = Color.Red;
+            nodeNumberCounter = 0;
+
+        }
+        /* =================== Functions for editing graph =================== */
+        public void addEdge(NodeClass nodeClickedFirst, NodeClass nodeClickedSecond)
+        {
+            if (!isEdgeAlreadyExist(nodeClickedFirst, nodeClickedSecond))
+            {
+                nodeClickedFirst.addEdge(nodeClickedSecond);
+            }
+            drawGraph();
         }
 
-        public void addNodeToList(NodeClass node)
+        public bool deleteEdge(Point position)
+        {
+            EdgeClass deleteEdge = whichEdgeWasClicked(position);
+            if (deleteEdge != null)
+            {  
+                foreach (NodeClass node in GraphNodes)
+                {
+                    node.nodeEdges.Remove(deleteEdge);
+                }
+                drawGraph();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool addNode(Point position)
+        {
+            NodeClass newNode = whichNodeWasClicked(position);
+            if (newNode == null)
+            {
+                newNode = new NodeClass(position, nodeNumberCounter++);
+                addNodeToList(newNode);
+                drawGraph();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool deleteNode(Point position)
+        {
+
+            NodeClass deleteNode = whichNodeWasClicked(position);
+            if (deleteNode != null)
+            {
+                EdgeClass deleteEdge = null;
+                // find edge to deleting node in other nodes
+                foreach (NodeClass node in graphNodes)
+                {
+                    foreach (EdgeClass edge in node.nodeEdges)
+                    {
+                        if(edge.NextNode == deleteNode)
+                        {
+                            deleteEdge = edge;
+                            break;
+                        }
+                    }
+                    node.nodeEdges.Remove(deleteEdge);
+                }
+                // delete node by itself
+                graphNodes.Remove(deleteNode);
+                drawGraph();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void addNodeToList(NodeClass node)
         {
             GraphNodes.Add(node);
         }
 
-        public int numberOfNodes()
+        private int numberOfNodes()
         {
             return GraphNodes.Count;
         }
+        /* =================== END Functions for editing graph  =================== */
 
+        /* **************** Functions for click position determinating  **************************/
         public NodeClass whichNodeWasClicked(Point click)
         {
             //find which node was clicked by its position
             NodeClass result = null;
-            foreach(NodeClass node in GraphNodes)
+            foreach (NodeClass node in GraphNodes)
             {
                 if (node.nodeWasClicked(click))
                     result = node;
@@ -83,12 +211,12 @@ namespace GraphDesigner
             return result;
         }
 
-        public EdgeClass whichEdgeWasClicked(Point click)
+        private EdgeClass whichEdgeWasClicked(Point click)
         {
             EdgeClass result = null;
 
             Point A;// clicked point
-            Point B; 
+            Point B;
             Point C;
 
             double range = 0;
@@ -102,8 +230,8 @@ namespace GraphDesigner
                     C = edge.NextNode.NodePosition;
                     B = node.NodePosition;
 
-                    range = Math.Abs( (B.Y - C.Y) * A.X + (C.X - B.X)*A.Y + (B.X * C.Y - C.X * B.Y) ) 
-                          / Math.Sqrt( (B.Y-C.Y) * (B.Y - C.Y) + (C.X - B.X) * (C.X - B.X) );
+                    range = Math.Abs((B.Y - C.Y) * A.X + (C.X - B.X) * A.Y + (B.X * C.Y - C.X * B.Y))
+                          / Math.Sqrt((B.Y - C.Y) * (B.Y - C.Y) + (C.X - B.X) * (C.X - B.X));
 
                     if (range < 8)
                     {
@@ -115,39 +243,7 @@ namespace GraphDesigner
             return result;
         }
 
-        public void deleteEdge(EdgeClass deleteEdge)
-        {
-            foreach (NodeClass node in GraphNodes)
-            {
-                node.nodeEdges.Remove(deleteEdge);
-            }
-        }
-
-
-
-        public void deleteNode(NodeClass deleteNode)
-        {
-
-            EdgeClass deleteEdge = null;
-            // find edge to deleting node in other nodes
-            foreach (NodeClass node in GraphNodes)
-            {
-                foreach (EdgeClass edge in node.nodeEdges)
-                {
-                    if(edge.NextNode == deleteNode)
-                    {
-                        deleteEdge = edge;
-                        break;
-                    }
-                }
-                node.nodeEdges.Remove(deleteEdge);
-            }
-            // delete node by itself
-            GraphNodes.Remove(deleteNode);
-        }
-
-
-        public bool isEdgeAlreadyExist(NodeClass from, NodeClass to)
+        private bool isEdgeAlreadyExist(NodeClass from, NodeClass to)
         {
             bool result = false;
 
@@ -158,8 +254,39 @@ namespace GraphDesigner
             }
             return result;
         }
+        /* **************** END Functions for click position determinating  **************************/
 
-        public void drawGraph(Graphics graphic)
+
+        /* ++++++++++++++++ Functions for inner math  ++++++++++++++++++++++++++++++++*/
+        public void shortPathCalculation(NodeClass nodeClickedFirst, NodeClass nodeClickedSecond)
+        {
+            shortWay.SizeOfNodes = numberOfNodes();
+            shortWay.resetParams();
+            ArrayList path = shortWay.findShortWay(nodeClickedFirst, nodeClickedSecond, this);
+            if (path.Count > 0)
+            {
+                // show path on paintBox
+                drawGraph();
+                drawShortPath(path);
+            }
+        }
+
+        public int findNodeIndexByNodeNumber(int nodeNumber)
+        {
+            int currentNode = -1;
+
+            for (int i = 0; i < graphNodes.Count; ++i)
+            {
+                if (graphNodes[i].NodeNumber == nodeNumber)
+                    currentNode = i;
+            }
+            return currentNode;
+        }
+        /* ++++++++++++++++END Functions for inner math  +++++++++++++++++++++++++++++++*/
+
+
+        /* **************** Functions for graphic operations  **************************/
+        public void drawGraph()
         {
             Pen pen = new Pen(edgeColor);
             pen.Width = 3;
@@ -181,19 +308,21 @@ namespace GraphDesigner
             }
         }
 
-        public void drawShortPath(ArrayList path, Graphics graphic, Color color)
+        private void drawShortPath(ArrayList path)
         {
             int pos = 0;
             shortPath = new List<NodeClass>();
-            Pen pen = new Pen(color);
+            Pen pen = new Pen(shortPathColor);
             pen.Width = 3;
-            
+
+            // make list of nodes in short path
             for (int k = 0; k < path.Count; ++k)
             {
                 pos = (int)path[k];
                 shortPath.Add(graphNodes[pos]);
             }
 
+            // draw that list
            for (int i = 0; i < shortPath.Count - 1; ++i)
             {
                 
@@ -205,9 +334,9 @@ namespace GraphDesigner
                         drawArrowhead(graphic, pen, shortPath[i].NodePosition, edge.NextNode.NodePosition, 0.03);
                     }
                 }
-                shortPath[i].drawNode(graphic, Color.Red, Color.White);
+                shortPath[i].drawNode(graphic, selectedNodeColor, Color.White);
             }
-            shortPath[shortPath.Count - 1].drawNode(graphic, Color.Red, Color.White);
+            shortPath[shortPath.Count - 1].drawNode(graphic, selectedNodeColor, Color.White);
         }
 
 
@@ -232,5 +361,7 @@ namespace GraphDesigner
             pen.CustomEndCap = bigArrow;
             gr.DrawLine(pen, start.X, start.Y, x, y);
         }
+
+        /* ****************END  Functions for graphic operations  **************************/
     }
 }
