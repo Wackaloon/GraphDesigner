@@ -96,35 +96,25 @@ namespace GraphDesigner
         {
             EdgeClass result = null;
 
-            Point A;
-            Point B; // clicked dot
+            Point A;// clicked point
+            Point B; 
             Point C;
 
-            double AB = 0;
-            double AC = 0;
-            double BC = 0;
-
             double range = 0;
-            double treshhold = 0.002; // finger in the sky, just enough to work properly
 
             foreach (NodeClass node in graphNodes)
             {
                 foreach (EdgeClass edge in node.nodeEdges)
                 {
                     // find range between click and this edge
-                    A = node.NodePosition;
+                    A = click;
                     C = edge.NextNode.NodePosition;
-                    B = click;
+                    B = node.NodePosition;
 
-                    // lenght of vectors
-                    AB = Math.Sqrt((B.X - A.X) * (B.X - A.X) + (B.Y - A.Y) * (B.Y - A.Y));
-                    AC = Math.Sqrt((C.X - A.X) * (C.X - A.X) + (C.Y - A.Y) * (C.Y - A.Y));
-                    BC = Math.Sqrt((C.X - B.X) * (C.X - B.X) + (C.Y - B.Y) * (C.Y - B.Y));
+                    range = Math.Abs((B.Y - C.Y) * A.X + (C.X - B.X)*A.Y + (B.X * C.Y - C.X * B.Y)) 
+                        / Math.Sqrt((B.Y-C.Y) * (B.Y - C.Y) + (C.X - B.X) * (C.X - B.X));
 
-                    // difference between length of main line and line throw click point
-                    range = BC + AB - AC;
-
-                    if (range < AC * treshhold)
+                    if (range < 8)
                     {
                         result = edge;
                         return result;
