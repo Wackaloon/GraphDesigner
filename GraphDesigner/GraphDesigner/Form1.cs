@@ -21,11 +21,13 @@ namespace GraphDesigner
         Graphics paintBox = null;
         NodeClass nodeClickedFirst = null;
         NodeClass nodeClickedSecond = null;
+        int nodeNumberCounter;
 
         public Form1()
         {
             InitializeComponent();
             paintBox = pictureBoxGraph.CreateGraphics();
+            nodeNumberCounter = 0;
         }
 
         private void buttonAddNode_Click(object sender, EventArgs e)
@@ -36,6 +38,16 @@ namespace GraphDesigner
         private void buttonAddEdge_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateEdgeAdding;
+        }
+
+        private void buttonDeleteNode_Click(object sender, EventArgs e)
+        {
+            stateOfForm = stateEnum.stateNodeDeleting;
+        }
+
+        private void buttonDeleteEdge_Click(object sender, EventArgs e)
+        {
+            stateOfForm = stateEnum.stateEdgeDeleting;
         }
 
         private void pictureBoxGraph_MouseClick(object sender, MouseEventArgs e)
@@ -49,8 +61,10 @@ namespace GraphDesigner
                     addEdge(e);
                     break;
                 case stateEnum.stateEdgeDeleting:
+                    deleteEdge(e);
                     break;
                 case stateEnum.stateNodeDeleting:
+                    deleteNode(e);
                     break;
             }
             
@@ -58,12 +72,26 @@ namespace GraphDesigner
 
         private void addNode(MouseEventArgs e)
         {
-            int nodeNumber = graph.numberOfNodes();
             Point position = new Point(e.X, e.Y);
             NodeClass newNode = graph.whichNodeWasClicked(new Point(e.X, e.Y));
             if (newNode == null) { 
-                newNode = new NodeClass(position, nodeNumber);
+                newNode = new NodeClass(position, nodeNumberCounter++);
                 graph.addNodeToList(newNode);
+                graph.drawGraph(paintBox);
+            }
+            else
+            {
+                // show message
+            }
+        }
+
+        private void deleteNode(MouseEventArgs e)
+        {
+            Point position = new Point(e.X, e.Y);
+            NodeClass deleteNode = graph.whichNodeWasClicked(position);
+            if (deleteNode != null)
+            {
+                graph.deleteNode(deleteNode);
                 graph.drawGraph(paintBox);
             }
             else
@@ -78,7 +106,7 @@ namespace GraphDesigner
             {
                 nodeClickedFirst = graph.whichNodeWasClicked(new Point(e.X, e.Y));
                 if (nodeClickedFirst != null)
-                    nodeClickedFirst.showNode(paintBox, Color.Green);
+                    nodeClickedFirst.drawNode(paintBox, Color.Black, Color.Green);
             }
 
             else
@@ -87,21 +115,40 @@ namespace GraphDesigner
                 {
                     nodeClickedSecond = graph.whichNodeWasClicked(new Point(e.X, e.Y));
                     if (nodeClickedSecond != null)
-                        nodeClickedSecond.showNode(paintBox, Color.Green);
+                        nodeClickedSecond.drawNode(paintBox, Color.Black, Color.Green);
                 }
             }
 
 
             if (nodeClickedFirst != null && nodeClickedSecond != null)
             {
-                nodeClickedFirst.addEdge(nodeClickedSecond);
-                graph.drawGraph(paintBox);
+
+                if(!graph.isEdgeAlreadyExist(nodeClickedFirst, nodeClickedSecond))
+                {
+                    nodeClickedFirst.addEdge(nodeClickedSecond);
+                }
                 nodeClickedFirst = null;
                 nodeClickedSecond = null;
+                graph.drawGraph(paintBox);
+
             }
 
 
 
+        }
+
+        private void deleteEdge(MouseEventArgs e)
+        {
+            EdgeClass deleteEdge = graph.whichEdgeWasClicked(new Point(e.X, e.Y));
+            if (deleteEdge != null) { 
+                graph.deleteEdge(deleteEdge);
+                graph.drawGraph(paintBox);
+            }
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            graph.drawGraph(paintBox);
         }
     }
 }

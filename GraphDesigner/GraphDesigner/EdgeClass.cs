@@ -9,7 +9,7 @@ namespace GraphDesigner
 {
     class EdgeClass
     {
-        private int nextNode;
+        private NodeClass nextNode;
         private int weight;
 
 
@@ -18,14 +18,21 @@ namespace GraphDesigner
 
         }
 
-        public EdgeClass(int cNextNode, int cWeight)
+        public EdgeClass(NodeClass cNextNode, int cWeight)
         {
             this.nextNode = cNextNode;
             this.weight = cWeight;
 
         }
 
-        public int NextNode
+        public EdgeClass(NodeClass cNextNode)
+        {
+            this.nextNode = cNextNode;
+            this.weight = 10000000;
+
+        }
+
+        public NodeClass NextNode
         {
             get
             {

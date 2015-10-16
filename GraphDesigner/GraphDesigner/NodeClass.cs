@@ -13,15 +13,23 @@ namespace GraphDesigner
         private int nodeNumber;
 
         private Point nodePosition;
-        // point x = next node, point y = edge weight
+
         public List<EdgeClass> nodeEdges;
 
         private const int sizeOfNode = 30;
 
+
         public void addEdge(NodeClass nextNode)
         {
             int weight = calculateWeight(nextNode);
-            EdgeClass newEdge = new EdgeClass(nextNode.nodeNumber, weight);
+            EdgeClass newEdge = new EdgeClass(nextNode, weight);
+            nodeEdges.Add(newEdge);
+        }
+
+        public void addEdge(EdgeClass newEdge)
+        {
+            int weight = calculateWeight(newEdge.NextNode);
+            newEdge.Weight = weight;
             nodeEdges.Add(newEdge);
         }
 
@@ -34,7 +42,7 @@ namespace GraphDesigner
             return result;
         }
 
-        public void showNode(Graphics placeWhereShowIt, Color nodeColor)
+        public void drawNode(Graphics placeWhereShowIt, Color nodeColor, Color fillColor)
         {
             Rectangle rectangle = new Rectangle(this.nodePosition.X - sizeOfNode / 2,
                                                 this.nodePosition.Y - sizeOfNode / 2,
@@ -42,7 +50,7 @@ namespace GraphDesigner
 
             placeWhereShowIt.DrawEllipse(new Pen(nodeColor, 3), rectangle);
 
-            placeWhereShowIt.FillEllipse(new SolidBrush(Color.White), rectangle);
+            placeWhereShowIt.FillEllipse(new SolidBrush(fillColor), rectangle);
             // Create string to draw.
             String drawString = this.nodeNumber.ToString();
 
