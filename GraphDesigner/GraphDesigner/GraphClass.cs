@@ -156,6 +156,22 @@ namespace GraphDesigner
             }
         }
 
+        public bool addNode(Point position, int NodeId)
+        {
+            NodeClass newNode = whichNodeWasClicked(position);
+            if (newNode == null)
+            {
+                newNode = new NodeClass(position, NodeId);
+                addNodeToList(newNode);
+                drawGraph();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool deleteNode(Point position)
         {
 
@@ -278,9 +294,32 @@ namespace GraphDesigner
             for (int i = 0; i < graphNodes.Count; ++i)
             {
                 if (graphNodes[i].NodeNumber == nodeNumber)
+                {
                     currentNode = i;
+                    break;
+                }
             }
             return currentNode;
+        }
+
+        public NodeClass findNodeByNodeNumber(int nodeNumber)
+        {
+            NodeClass currentNode = null;
+
+            for (int i = 0; i < graphNodes.Count; ++i)
+            {
+                if (graphNodes[i].NodeNumber == nodeNumber)
+                {
+                    currentNode = graphNodes[i];
+                    break;
+                }
+            }
+            return currentNode;
+        }
+
+        public void clearGraph()
+        {
+            graphNodes.Clear();
         }
         /* ++++++++++++++++END Functions for inner math  +++++++++++++++++++++++++++++++*/
 

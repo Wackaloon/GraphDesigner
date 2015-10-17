@@ -73,6 +73,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShortestWayClass.cs" />
+    <Compile Include="SqlHandlerClass.cs" />
     <EmbeddedResource Include="AgeichenkoTestTask.resx">
       <DependentUpon>AgeichenkoTestTask.cs</DependentUpon>
     </EmbeddedResource>

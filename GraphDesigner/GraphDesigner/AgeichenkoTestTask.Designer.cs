@@ -118,6 +118,7 @@
             this.buttonLoadFromDB.TabIndex = 7;
             this.buttonLoadFromDB.Text = "Load from DB";
             this.buttonLoadFromDB.UseVisualStyleBackColor = true;
+            this.buttonLoadFromDB.Click += new System.EventHandler(this.buttonLoadFromDB_Click);
             // 
             // AgeichenkoTestTask
             // 
@@ -135,7 +136,6 @@
             this.Name = "AgeichenkoTestTask";
             this.Text = "Graph Designer";
             this.Activated += new System.EventHandler(this.Form1_Activated);
-            this.Load += new System.EventHandler(this.AgeichenkoTestTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).EndInit();
             this.ResumeLayout(false);
 

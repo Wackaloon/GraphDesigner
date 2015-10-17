@@ -8,12 +8,9 @@ namespace GraphDesigner
     enum stateEnum{ stateNodeAdding, stateEdgeAdding, stateNodeDeleting, stateEdgeDeleting, stageShortWayFinding}
     public partial class AgeichenkoTestTask : Form
     {
-        SqlConnection sqlConnect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\C#_Projects\SoftTechTestTaskAgeychenko\GraphDesigner\GraphDesigner\GraphDesigner\GraphDB.mdf;Integrated Security=True");
-        SqlCommand sqlCommand = new SqlCommand();
-        SqlDataReader sqlDataReader;// = new SqlDataReader();
-
         stateEnum stateOfForm;
         GraphClass graph = null;
+        SqlHandlerClass sqlHandler = null;
         Graphics paintBox = null;
         NodeClass nodeClickedFirst = null;
         NodeClass nodeClickedSecond = null;
@@ -25,6 +22,7 @@ namespace GraphDesigner
             paintBox = pictureBoxGraph.CreateGraphics();
 
             graph = new GraphClass();
+            sqlHandler = new SqlHandlerClass();
 
             graph.Graphic = paintBox;
             graph.NodeColor = Color.Black;
@@ -145,6 +143,8 @@ namespace GraphDesigner
 
         private void buttonSaveToDB_Click(object sender, EventArgs e)
         {
+            sqlHandler.saveGraphToDB(graph);
+            /*
             sqlConnect.Open();
             //insert data
             int EdgeId = 0;
@@ -177,12 +177,14 @@ namespace GraphDesigner
 
             sqlConnect.Close();
             //endd of read data
+            */
 
         }
 
-        private void AgeichenkoTestTask_Load(object sender, EventArgs e)
+        private void buttonLoadFromDB_Click(object sender, EventArgs e)
         {
-            sqlCommand.Connection = sqlConnect;
+            graph.clearGraph();
+            sqlHandler.loadGraphFromDB(graph);
         }
     }
 }
