@@ -6,6 +6,7 @@ using System.Drawing;
 
 namespace GraphDesigner
 {
+    [Serializable()]
     class NodeClass
     {
         private int nodeNumber;

@@ -11,6 +11,7 @@ namespace GraphDesigner
         stateEnum stateOfForm;
         GraphClass graph = null;
         SqlHandlerClass sqlHandler = null;
+        SerializeHandlerClass serializer = null;
         Graphics paintBox = null;
         NodeClass nodeClickedFirst = null;
         NodeClass nodeClickedSecond = null;
@@ -23,7 +24,9 @@ namespace GraphDesigner
 
             graph = new GraphClass();
             sqlHandler = new SqlHandlerClass();
+            serializer = new SerializeHandlerClass();
 
+            serializer.PaintBox = paintBox;
             graph.Graphic = paintBox;
             graph.NodeColor = Color.Black;
             graph.EdgeColor = Color.Gray;
@@ -144,47 +147,24 @@ namespace GraphDesigner
         private void buttonSaveToDB_Click(object sender, EventArgs e)
         {
             sqlHandler.saveGraphToDB(graph);
-            /*
-            sqlConnect.Open();
-            //insert data
-            int EdgeId = 0;
-            int EdgeParent = 0;
-            int EdgeDestination = 0;
-            sqlCommand.CommandText = "insert into Edges (EdgeId, EdgeParent, EdgeDestination) "
-                                   + "values ('"+ EdgeId + "','" + EdgeParent + "','" + EdgeDestination + "')";
-            sqlCommand.ExecuteNonQuery();
-            sqlCommand.Clone();
-            sqlConnect.Close();
-            // end of insert
-
-            EdgeId = 0;
-            EdgeParent = 0;
-            EdgeDestination = 0;
-
-            //read data
-            sqlConnect.Open();
-            sqlCommand.CommandText = "select * from Edges";
-            sqlDataReader = sqlCommand.ExecuteReader();
-            if (sqlDataReader.HasRows)
-            {
-                while (sqlDataReader.Read())
-                {
-                    EdgeId = Convert.ToInt32(sqlDataReader[0].ToString());
-                    EdgeParent = Convert.ToInt32(sqlDataReader[1].ToString());
-                    EdgeDestination = Convert.ToInt32(sqlDataReader[2].ToString());
-                }
-            }
-
-            sqlConnect.Close();
-            //endd of read data
-            */
-
-        }
+                    }
 
         private void buttonLoadFromDB_Click(object sender, EventArgs e)
         {
             graph.clearGraph();
             sqlHandler.loadGraphFromDB(graph);
+        }
+
+        private void buttonSaveToFile_Click(object sender, EventArgs e)
+        {
+            serializer.saveGraphToFile(graph);
+        }
+
+        private void buttonLoadFromFile_Click(object sender, EventArgs e)
+        {
+            graph = null;
+            graph = serializer.loadGraphFromFile();
+            
         }
     }
 }

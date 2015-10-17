@@ -1,5 +1,8 @@
-﻿namespace GraphDesigner
+﻿using System;
+
+namespace GraphDesigner
 {
+    [Serializable()]
     class EdgeClass
     {
         private NodeClass nextNode;

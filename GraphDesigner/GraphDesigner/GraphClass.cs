@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 
 namespace GraphDesigner
 {
+    [Serializable()]
     class GraphClass
     {
         private List<NodeClass> graphNodes;
@@ -21,6 +22,7 @@ namespace GraphDesigner
 
         private int nodeNumberCounter;
 
+        [field: NonSerialized()]
         Graphics graphic;
 
         public Color NodeColor

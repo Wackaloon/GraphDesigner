@@ -36,6 +36,8 @@
             this.buttonShortWay = new System.Windows.Forms.Button();
             this.buttonSaveToDB = new System.Windows.Forms.Button();
             this.buttonLoadFromDB = new System.Windows.Forms.Button();
+            this.buttonLoadFromFile = new System.Windows.Forms.Button();
+            this.buttonSaveToFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,11 +122,33 @@
             this.buttonLoadFromDB.UseVisualStyleBackColor = true;
             this.buttonLoadFromDB.Click += new System.EventHandler(this.buttonLoadFromDB_Click);
             // 
+            // buttonLoadFromFile
+            // 
+            this.buttonLoadFromFile.Location = new System.Drawing.Point(998, 320);
+            this.buttonLoadFromFile.Name = "buttonLoadFromFile";
+            this.buttonLoadFromFile.Size = new System.Drawing.Size(87, 23);
+            this.buttonLoadFromFile.TabIndex = 9;
+            this.buttonLoadFromFile.Text = "Load from file";
+            this.buttonLoadFromFile.UseVisualStyleBackColor = true;
+            this.buttonLoadFromFile.Click += new System.EventHandler(this.buttonLoadFromFile_Click);
+            // 
+            // buttonSaveToFile
+            // 
+            this.buttonSaveToFile.Location = new System.Drawing.Point(998, 291);
+            this.buttonSaveToFile.Name = "buttonSaveToFile";
+            this.buttonSaveToFile.Size = new System.Drawing.Size(89, 23);
+            this.buttonSaveToFile.TabIndex = 8;
+            this.buttonSaveToFile.Text = "Save to file";
+            this.buttonSaveToFile.UseVisualStyleBackColor = true;
+            this.buttonSaveToFile.Click += new System.EventHandler(this.buttonSaveToFile_Click);
+            // 
             // AgeichenkoTestTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1099, 648);
+            this.Controls.Add(this.buttonLoadFromFile);
+            this.Controls.Add(this.buttonSaveToFile);
             this.Controls.Add(this.buttonLoadFromDB);
             this.Controls.Add(this.buttonSaveToDB);
             this.Controls.Add(this.buttonShortWay);
@@ -151,6 +175,8 @@
         private System.Windows.Forms.Button buttonShortWay;
         private System.Windows.Forms.Button buttonSaveToDB;
         private System.Windows.Forms.Button buttonLoadFromDB;
+        private System.Windows.Forms.Button buttonLoadFromFile;
+        private System.Windows.Forms.Button buttonSaveToFile;
     }
 }
 
