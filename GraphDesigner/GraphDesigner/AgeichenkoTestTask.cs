@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace GraphDesigner
 {
     enum stateEnum{ stateNodeAdding, stateEdgeAdding, stateNodeDeleting, stateEdgeDeleting, stageShortWayFinding}
     public partial class AgeichenkoTestTask : Form
     {
-
+        SqlConnection sqlConnect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\C#_Projects\SoftTechTestTaskAgeychenko\GraphDesigner\GraphDesigner\GraphDesigner\GraphDB.mdf;Integrated Security=True");
+        SqlCommand sqlCommand = new SqlCommand();
+        SqlDataReader sqlDataReader;// = new SqlDataReader();
 
         stateEnum stateOfForm;
         GraphClass graph = null;
@@ -141,6 +143,46 @@ namespace GraphDesigner
             }
         }
 
+        private void buttonSaveToDB_Click(object sender, EventArgs e)
+        {
+            sqlConnect.Open();
+            //insert data
+            int EdgeId = 0;
+            int EdgeParent = 0;
+            int EdgeDestination = 0;
+            sqlCommand.CommandText = "insert into Edges (EdgeId, EdgeParent, EdgeDestination) "
+                                   + "values ('"+ EdgeId + "','" + EdgeParent + "','" + EdgeDestination + "')";
+            sqlCommand.ExecuteNonQuery();
+            sqlCommand.Clone();
+            sqlConnect.Close();
+            // end of insert
 
+            EdgeId = 0;
+            EdgeParent = 0;
+            EdgeDestination = 0;
+
+            //read data
+            sqlConnect.Open();
+            sqlCommand.CommandText = "select * from Edges";
+            sqlDataReader = sqlCommand.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    EdgeId = Convert.ToInt32(sqlDataReader[0].ToString());
+                    EdgeParent = Convert.ToInt32(sqlDataReader[1].ToString());
+                    EdgeDestination = Convert.ToInt32(sqlDataReader[2].ToString());
+                }
+            }
+
+            sqlConnect.Close();
+            //endd of read data
+
+        }
+
+        private void AgeichenkoTestTask_Load(object sender, EventArgs e)
+        {
+            sqlCommand.Connection = sqlConnect;
+        }
     }
 }

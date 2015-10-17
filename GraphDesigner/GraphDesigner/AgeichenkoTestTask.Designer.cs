@@ -34,6 +34,8 @@
             this.buttonDeleteNode = new System.Windows.Forms.Button();
             this.buttonDeleteEdge = new System.Windows.Forms.Button();
             this.buttonShortWay = new System.Windows.Forms.Button();
+            this.buttonSaveToDB = new System.Windows.Forms.Button();
+            this.buttonLoadFromDB = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,11 +100,32 @@
             this.buttonShortWay.UseVisualStyleBackColor = true;
             this.buttonShortWay.Click += new System.EventHandler(this.buttonShortWay_Click);
             // 
+            // buttonSaveToDB
+            // 
+            this.buttonSaveToDB.Location = new System.Drawing.Point(998, 208);
+            this.buttonSaveToDB.Name = "buttonSaveToDB";
+            this.buttonSaveToDB.Size = new System.Drawing.Size(89, 23);
+            this.buttonSaveToDB.TabIndex = 6;
+            this.buttonSaveToDB.Text = "Save to DB";
+            this.buttonSaveToDB.UseVisualStyleBackColor = true;
+            this.buttonSaveToDB.Click += new System.EventHandler(this.buttonSaveToDB_Click);
+            // 
+            // buttonLoadFromDB
+            // 
+            this.buttonLoadFromDB.Location = new System.Drawing.Point(998, 237);
+            this.buttonLoadFromDB.Name = "buttonLoadFromDB";
+            this.buttonLoadFromDB.Size = new System.Drawing.Size(87, 23);
+            this.buttonLoadFromDB.TabIndex = 7;
+            this.buttonLoadFromDB.Text = "Load from DB";
+            this.buttonLoadFromDB.UseVisualStyleBackColor = true;
+            // 
             // AgeichenkoTestTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1099, 648);
+            this.Controls.Add(this.buttonLoadFromDB);
+            this.Controls.Add(this.buttonSaveToDB);
             this.Controls.Add(this.buttonShortWay);
             this.Controls.Add(this.buttonDeleteEdge);
             this.Controls.Add(this.buttonDeleteNode);
@@ -112,6 +135,7 @@
             this.Name = "AgeichenkoTestTask";
             this.Text = "Graph Designer";
             this.Activated += new System.EventHandler(this.Form1_Activated);
+            this.Load += new System.EventHandler(this.AgeichenkoTestTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).EndInit();
             this.ResumeLayout(false);
 
@@ -125,6 +149,8 @@
         private System.Windows.Forms.Button buttonDeleteNode;
         private System.Windows.Forms.Button buttonDeleteEdge;
         private System.Windows.Forms.Button buttonShortWay;
+        private System.Windows.Forms.Button buttonSaveToDB;
+        private System.Windows.Forms.Button buttonLoadFromDB;
     }
 }
 
