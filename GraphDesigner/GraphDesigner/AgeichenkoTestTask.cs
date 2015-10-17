@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace GraphDesigner
 {
     enum stateEnum{ stateNodeAdding, stateEdgeAdding, stateNodeDeleting, stateEdgeDeleting, stageShortWayFinding}
-    public partial class Form1 : Form
+    public partial class AgeichenkoTestTask : Form
     {
 
 
@@ -16,7 +16,7 @@ namespace GraphDesigner
         NodeClass nodeClickedFirst = null;
         NodeClass nodeClickedSecond = null;
 
-        public Form1()
+        public AgeichenkoTestTask()
         {
             InitializeComponent();
             stateOfForm = stateEnum.stateNodeAdding;
