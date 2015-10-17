@@ -8,7 +8,7 @@ namespace GraphDesigner
     [Serializable()]
     class SerializeHandlerClass
     {
-        private const string FileName = @".\SavedGraph.xml";
+        private const string FileName = @".\SavedGraph.bin";
         private Graphics paintBox;
 
         public Graphics PaintBox
