@@ -15,8 +15,8 @@ namespace GraphDesigner
 
         private Color nodeColor;
         private Color edgeColor;
-        private Color shortPathColor;
-        private Color selectedNodeColor;
+        private Color shortPathEdgeColor;
+        private Color shortPathNodeColor;
 
         private ShortestWayClass shortWay;
 
@@ -64,16 +64,16 @@ namespace GraphDesigner
             }
         }
 
-        public Color ShortPathColor
+        public Color ShortPathEdgeColor
         {
             get
             {
-                return shortPathColor;
+                return shortPathEdgeColor;
             }
 
             set
             {
-                shortPathColor = value;
+                shortPathEdgeColor = value;
             }
         }
 
@@ -90,16 +90,16 @@ namespace GraphDesigner
             }
         }
 
-        public Color SelectedNodeColor
+        public Color ShortPathNodeColor
         {
             get
             {
-                return selectedNodeColor;
+                return shortPathNodeColor;
             }
 
             set
             {
-                selectedNodeColor = value;
+                shortPathNodeColor = value;
             }
         }
 
@@ -109,8 +109,8 @@ namespace GraphDesigner
             shortWay = new ShortestWayClass();
             nodeColor = Color.Black;
             edgeColor = Color.Gray;
-            shortPathColor = Color.LawnGreen;
-            selectedNodeColor = Color.Red;
+            shortPathEdgeColor = Color.LawnGreen;
+            shortPathNodeColor = Color.Red;
             nodeNumberCounter = 0;
 
         }
@@ -322,6 +322,7 @@ namespace GraphDesigner
         public void clearGraph()
         {
             graphNodes.Clear();
+            drawGraph();
         }
         /* ++++++++++++++++END Functions for inner math  +++++++++++++++++++++++++++++++*/
 
@@ -353,7 +354,7 @@ namespace GraphDesigner
         {
             int pos = 0;
             shortPath = new List<NodeClass>();
-            Pen pen = new Pen(shortPathColor);
+            Pen pen = new Pen(shortPathEdgeColor);
             pen.Width = 3;
 
             // make list of nodes in short path
@@ -375,9 +376,9 @@ namespace GraphDesigner
                         drawArrowhead(graphic, pen, shortPath[i].NodePosition, edge.NextNode.NodePosition, 0.03);
                     }
                 }
-                shortPath[i].drawNode(graphic, selectedNodeColor, Color.White);
+                shortPath[i].drawNode(graphic, shortPathNodeColor, Color.White);
             }
-            shortPath[shortPath.Count - 1].drawNode(graphic, selectedNodeColor, Color.White);
+            shortPath[shortPath.Count - 1].drawNode(graphic, shortPathNodeColor, Color.White);
         }
 
 

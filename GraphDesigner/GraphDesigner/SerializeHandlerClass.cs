@@ -2,13 +2,13 @@
 using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace GraphDesigner
 {
     [Serializable()]
     class SerializeHandlerClass
     {
-        private const string FileName = @".\SavedGraph.bin";
         private Graphics paintBox;
 
         public Graphics PaintBox
@@ -26,24 +26,57 @@ namespace GraphDesigner
 
         public void saveGraphToFile(GraphClass graph)
         {
-            Stream TestFileStream = File.Create(FileName);
-            BinaryFormatter serializer = new BinaryFormatter();
-            serializer.Serialize(TestFileStream, graph);
-            TestFileStream.Close();
+
+            Stream TestFileStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "Graph file (*.gph)|*.gph|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((TestFileStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    BinaryFormatter serializer = new BinaryFormatter();
+                    serializer.Serialize(TestFileStream, graph);
+                    TestFileStream.Close();
+                }
+            }
+            
         }
 
         public GraphClass loadGraphFromFile()
         {
+            Stream TestFileStream = null;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
             GraphClass graph = new GraphClass();
-            if (File.Exists(FileName))
+
+            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.Filter = "Graph file (*.gph)|*.gph|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                Stream TestFileStream = File.OpenRead(FileName);
-                BinaryFormatter deserializer = new BinaryFormatter();
-                graph = (GraphClass)deserializer.Deserialize(TestFileStream);
-                TestFileStream.Close();
+                try
+                {
+                    if ((TestFileStream = openFileDialog1.OpenFile()) != null)
+                    {
+                        BinaryFormatter deserializer = new BinaryFormatter();
+                        graph = (GraphClass)deserializer.Deserialize(TestFileStream);
+                        TestFileStream.Close();
+                        graph.Graphic = paintBox;
+                        graph.drawGraph();
+                        return graph;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
             }
-            graph.Graphic = paintBox;
-            graph.drawGraph();
+
             return graph;
         }
     }
