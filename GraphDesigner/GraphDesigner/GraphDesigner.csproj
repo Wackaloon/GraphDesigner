@@ -83,6 +83,11 @@
       <DependentUpon>AgeichenkoTestTask.cs</DependentUpon>
     </Compile>
     <Compile Include="GraphClass.cs" />
+    <Compile Include="GraphDBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GraphDBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Languages\Translation.ru.Designer.cs">
       <DependentUpon>Translation.ru.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -131,6 +136,17 @@
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="GraphDBDataSet.xsc">
+      <DependentUpon>GraphDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GraphDBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GraphDBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GraphDBDataSet.xss">
+      <DependentUpon>GraphDBDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -145,7 +161,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="favicon %282%29.ico" />
     <Content Include="GraphDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
