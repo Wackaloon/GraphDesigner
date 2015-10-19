@@ -117,6 +117,7 @@ namespace GraphDesigner
         /* =================== Functions for editing graph =================== */
         public void addEdge(NodeClass nodeClickedFirst, NodeClass nodeClickedSecond)
         {
+            // prevent clones of existing edges
             if (!isEdgeAlreadyExist(nodeClickedFirst, nodeClickedSecond))
             {
                 nodeClickedFirst.addEdge(nodeClickedSecond);
@@ -126,6 +127,7 @@ namespace GraphDesigner
 
         public bool deleteEdge(Point position)
         {
+            // delete if some edge was clicked
             EdgeClass deleteEdge = whichEdgeWasClicked(position);
             if (deleteEdge != null)
             {  
@@ -144,6 +146,7 @@ namespace GraphDesigner
 
         public bool addNode(Point position)
         {
+            // add new node if click place was empty
             NodeClass newNode = whichNodeWasClicked(position);
             if (newNode == null)
             {
@@ -158,20 +161,13 @@ namespace GraphDesigner
             }
         }
 
-        public bool addNode(Point position, int NodeId)
+        public void addNode(Point position, int NodeId)
         {
-            NodeClass newNode = whichNodeWasClicked(position);
-            if (newNode == null)
-            {
-                newNode = new NodeClass(position, NodeId);
-                addNodeToList(newNode);
-                drawGraph();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            // add node by it's id (used in load function)
+            NodeClass newNode = new NodeClass(position, NodeId);
+            addNodeToList(newNode);
+            drawGraph();
+                
         }
 
         public bool deleteNode(Point position)
@@ -181,7 +177,7 @@ namespace GraphDesigner
             if (deleteNode != null)
             {
                 EdgeClass deleteEdge = null;
-                // find edge to deleting node in other nodes
+                // find edge to this node in other nodes
                 foreach (NodeClass node in graphNodes)
                 {
                     foreach (EdgeClass edge in node.nodeEdges)
@@ -220,25 +216,23 @@ namespace GraphDesigner
         public NodeClass whichNodeWasClicked(Point click)
         {
             //find which node was clicked by its position
-            NodeClass result = null;
             foreach (NodeClass node in GraphNodes)
             {
                 if (node.nodeWasClicked(click))
-                    result = node;
+                    return node;
             }
-            return result;
+            return null;
         }
 
         private EdgeClass whichEdgeWasClicked(Point click)
         {
-            EdgeClass result = null;
-
             Point A;// clicked point
             Point B;
             Point C;
 
             double range = 0;
 
+            // find first suitable
             foreach (NodeClass node in GraphNodes)
             {
                 foreach (EdgeClass edge in node.nodeEdges)
@@ -252,25 +246,20 @@ namespace GraphDesigner
                           / Math.Sqrt((B.Y - C.Y) * (B.Y - C.Y) + (C.X - B.X) * (C.X - B.X));
 
                     if (range < 8)
-                    {
-                        result = edge;
-                        return result;
-                    }
+                        return edge;
                 }
             }
-            return result;
+            return null;
         }
 
         private bool isEdgeAlreadyExist(NodeClass from, NodeClass to)
         {
-            bool result = false;
-
             foreach (EdgeClass edge in from.nodeEdges)
             {
                 if (edge.NextNode == to)
-                    result = true;
+                    return true;
             }
-            return result;
+            return false;
         }
         /* **************** END Functions for click position determinating  **************************/
 
@@ -291,32 +280,26 @@ namespace GraphDesigner
 
         public int findNodeIndexByNodeNumber(int nodeNumber)
         {
-            int currentNode = -1;
-
             for (int i = 0; i < graphNodes.Count; ++i)
             {
                 if (graphNodes[i].NodeNumber == nodeNumber)
                 {
-                    currentNode = i;
-                    break;
+                    return i;
                 }
             }
-            return currentNode;
+            return -1;
         }
 
         public NodeClass findNodeByNodeNumber(int nodeNumber)
         {
-            NodeClass currentNode = null;
-
             for (int i = 0; i < graphNodes.Count; ++i)
             {
                 if (graphNodes[i].NodeNumber == nodeNumber)
                 {
-                    currentNode = graphNodes[i];
-                    break;
+                    return graphNodes[i];
                 }
             }
-            return currentNode;
+            return null;
         }
 
         public void clearGraph()

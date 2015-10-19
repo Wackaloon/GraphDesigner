@@ -9,6 +9,7 @@ namespace GraphDesigner
     [Serializable()]
     class SerializeHandlerClass
     {
+        [field: NonSerialized()]
         private Graphics paintBox;
 
         public Graphics PaintBox
@@ -26,11 +27,12 @@ namespace GraphDesigner
 
         public void saveGraphToFile(GraphClass graph)
         {
+            // saving to user named file and user selected dir
 
             Stream TestFileStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-            saveFileDialog1.Filter = "Graph file (*.gph)|*.gph|All files (*.*)|*.*";
+            saveFileDialog1.Filter = "Graph file (*.gph)|*.gph";
             saveFileDialog1.FilterIndex = 1;
             saveFileDialog1.RestoreDirectory = true;
 
@@ -48,12 +50,14 @@ namespace GraphDesigner
 
         public GraphClass loadGraphFromFile()
         {
+            // load from user file
+
             Stream TestFileStream = null;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             GraphClass graph = new GraphClass();
 
             openFileDialog1.InitialDirectory = "c:\\";
-            openFileDialog1.Filter = "Graph file (*.gph)|*.gph|All files (*.*)|*.*";
+            openFileDialog1.Filter = "Graph file (*.gph)|*.gph";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
 

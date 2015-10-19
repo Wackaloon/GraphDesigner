@@ -64,10 +64,12 @@ namespace GraphDesigner
 
         private int calculateWeight(NodeClass nextNode)
         {
+            // weight is a distance between nodes in px
             int result = 0;
             double x = Math.Pow(Convert.ToDouble(this.nodePosition.X - nextNode.nodePosition.X), 2);
             double y = Math.Pow(Convert.ToDouble(this.nodePosition.Y - nextNode.nodePosition.Y), 2);
-            result = Convert.ToInt32( Math.Floor(Math.Sqrt(x + y)) );
+            result =  (int)Math.Floor(Math.Sqrt(x + y));
+
             return result;
         }
 
@@ -96,11 +98,13 @@ namespace GraphDesigner
 
         public bool nodeWasClicked(Point click)
         {
+            // find distance between this node and click point
             int xMiss = this.nodePosition.X - click.X;
             int yMiss = this.nodePosition.Y - click.Y;
             xMiss = xMiss * xMiss; // too long expresion -> (int)Math.Pow(xMiss, 2);
             yMiss = yMiss * yMiss; //                    (int)Math.Pow(yMiss, 2);
             int result = (int)Math.Sqrt(xMiss + yMiss);
+
             return (result < sizeOfNode/2) ? true : false;
         }
 

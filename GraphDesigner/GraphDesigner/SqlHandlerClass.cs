@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace GraphDesigner
 {
     [Serializable()]
     class SqlHandlerClass
     {
-
+        [field: NonSerialized()]
         private SqlConnection sqlConnect;
+        [field: NonSerialized()]
         private SqlCommand sqlCommand;
+        [field: NonSerialized()]
         private SqlDataReader sqlDataReader;
         public SqlHandlerClass()
         {
@@ -36,25 +39,31 @@ namespace GraphDesigner
             sqlCommand.ExecuteNonQuery();
 
             //insert new data
-            foreach (NodeClass node in graph.GraphNodes)
+            try
             {
-                NodeId = node.NodeNumber;
-                NodeX = node.NodePosition.X;
-                NodeY = node.NodePosition.Y;
-                sqlCommand.CommandText = "insert into Nodes (NodeId, NodeX, NodeY) "
-                       + "values ('" + NodeId + "','" + NodeX + "','" + NodeY + "')";
-                sqlCommand.ExecuteNonQuery();
-                //sqlCommand.Clone();
-                foreach (EdgeClass edge in node.nodeEdges)
-                {
-                    EdgeParent = node.NodeNumber;
-                    EdgeDestination = edge.NextNode.NodeNumber;
-                    sqlCommand.CommandText = "insert into Edges (EdgeId, EdgeParent, EdgeDestination) "
-                                   + "values ('" + EdgeId++ + "','" + EdgeParent + "','" + EdgeDestination + "')";
-                    sqlCommand.ExecuteNonQuery();
-                    //sqlCommand.Clone();
-                }
+                    foreach (NodeClass node in graph.GraphNodes)
+                    {
+                        NodeId = node.NodeNumber;
+                        NodeX = node.NodePosition.X;
+                        NodeY = node.NodePosition.Y;
+                        sqlCommand.CommandText = "insert into Nodes (NodeId, NodeX, NodeY) "
+                               + "values ('" + NodeId + "','" + NodeX + "','" + NodeY + "')";
+                        sqlCommand.ExecuteNonQuery();
 
+                        foreach (EdgeClass edge in node.nodeEdges)
+                        {
+                            EdgeParent = node.NodeNumber;
+                            EdgeDestination = edge.NextNode.NodeNumber;
+                            sqlCommand.CommandText = "insert into Edges (EdgeId, EdgeParent, EdgeDestination) "
+                                           + "values ('" + EdgeId++ + "','" + EdgeParent + "','" + EdgeDestination + "')";
+                            sqlCommand.ExecuteNonQuery();
+                        }
+
+                    }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: Could not insert data into database. Original error: " + ex.Message);
             }
             sqlConnect.Close();
             // end of insert
@@ -94,7 +103,7 @@ namespace GraphDesigner
                     }
                     else
                     {
-                        // do something
+                        MessageBox.Show("Error: Database doesn't have any nodes");
                     }
                 }
             }
@@ -123,7 +132,7 @@ namespace GraphDesigner
                     }
                     else
                     {
-                        // do something
+                        MessageBox.Show("Error: Database doesn't have any edges");
                     }
                 }
             }
