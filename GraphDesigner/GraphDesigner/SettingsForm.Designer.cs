@@ -53,7 +53,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 28);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(170, 21);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_DrawItem);
             // 
@@ -62,7 +62,7 @@
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(12, 68);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.Size = new System.Drawing.Size(170, 21);
             this.comboBox2.TabIndex = 3;
             this.comboBox2.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_DrawItem);
             // 
@@ -80,7 +80,7 @@
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(12, 108);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.Size = new System.Drawing.Size(170, 21);
             this.comboBox3.TabIndex = 5;
             this.comboBox3.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_DrawItem);
             // 
@@ -98,7 +98,7 @@
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Location = new System.Drawing.Point(12, 148);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
+            this.comboBox4.Size = new System.Drawing.Size(170, 21);
             this.comboBox4.TabIndex = 7;
             this.comboBox4.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_DrawItem);
             // 
@@ -113,7 +113,7 @@
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(128, 178);
+            this.buttonAccept.Location = new System.Drawing.Point(107, 190);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(75, 23);
             this.buttonAccept.TabIndex = 8;
@@ -125,7 +125,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(215, 213);
+            this.ClientSize = new System.Drawing.Size(194, 225);
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.comboBox4);
             this.Controls.Add(this.labelNodeShort);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgeichenkoTestTask));
             this.buttonAddNode = new System.Windows.Forms.Button();
             this.buttonAddEdge = new System.Windows.Forms.Button();
@@ -49,33 +50,40 @@
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.russianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.addBox = new System.Windows.Forms.GroupBox();
+            this.deleteBox = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.addBox.SuspendLayout();
+            this.deleteBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAddNode
             // 
-            this.buttonAddNode.Location = new System.Drawing.Point(1021, 41);
+            this.buttonAddNode.Location = new System.Drawing.Point(6, 19);
             this.buttonAddNode.Name = "buttonAddNode";
-            this.buttonAddNode.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddNode.Size = new System.Drawing.Size(150, 40);
             this.buttonAddNode.TabIndex = 0;
             this.buttonAddNode.Text = "Add Node";
+            this.toolTip.SetToolTip(this.buttonAddNode, "Click on emty place to add a new node");
             this.buttonAddNode.UseVisualStyleBackColor = true;
             this.buttonAddNode.Click += new System.EventHandler(this.buttonAddNode_Click);
             // 
             // buttonAddEdge
             // 
-            this.buttonAddEdge.Location = new System.Drawing.Point(1021, 70);
+            this.buttonAddEdge.Location = new System.Drawing.Point(4, 74);
             this.buttonAddEdge.Name = "buttonAddEdge";
-            this.buttonAddEdge.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddEdge.Size = new System.Drawing.Size(150, 40);
             this.buttonAddEdge.TabIndex = 1;
             this.buttonAddEdge.Text = "Add Edge";
+            this.toolTip.SetToolTip(this.buttonAddEdge, "Click on two nodes to add an edge between them");
             this.buttonAddEdge.UseVisualStyleBackColor = true;
             this.buttonAddEdge.Click += new System.EventHandler(this.buttonAddEdge_Click);
             // 
@@ -92,31 +100,34 @@
             // 
             // buttonDeleteNode
             // 
-            this.buttonDeleteNode.Location = new System.Drawing.Point(1020, 100);
+            this.buttonDeleteNode.Location = new System.Drawing.Point(4, 19);
             this.buttonDeleteNode.Name = "buttonDeleteNode";
-            this.buttonDeleteNode.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeleteNode.Size = new System.Drawing.Size(150, 40);
             this.buttonDeleteNode.TabIndex = 3;
             this.buttonDeleteNode.Text = "Delete Node";
+            this.toolTip.SetToolTip(this.buttonDeleteNode, "Click on node to delete it");
             this.buttonDeleteNode.UseVisualStyleBackColor = true;
             this.buttonDeleteNode.Click += new System.EventHandler(this.buttonDeleteNode_Click);
             // 
             // buttonDeleteEdge
             // 
-            this.buttonDeleteEdge.Location = new System.Drawing.Point(1021, 130);
+            this.buttonDeleteEdge.Location = new System.Drawing.Point(4, 74);
             this.buttonDeleteEdge.Name = "buttonDeleteEdge";
-            this.buttonDeleteEdge.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeleteEdge.Size = new System.Drawing.Size(150, 40);
             this.buttonDeleteEdge.TabIndex = 4;
             this.buttonDeleteEdge.Text = "Delete Edge";
+            this.toolTip.SetToolTip(this.buttonDeleteEdge, "Click on edge to delete it");
             this.buttonDeleteEdge.UseVisualStyleBackColor = true;
             this.buttonDeleteEdge.Click += new System.EventHandler(this.buttonDeleteEdge_Click);
             // 
             // buttonShortWay
             // 
-            this.buttonShortWay.Location = new System.Drawing.Point(1019, 160);
+            this.buttonShortWay.Location = new System.Drawing.Point(1014, 316);
             this.buttonShortWay.Name = "buttonShortWay";
-            this.buttonShortWay.Size = new System.Drawing.Size(75, 23);
+            this.buttonShortWay.Size = new System.Drawing.Size(150, 40);
             this.buttonShortWay.TabIndex = 5;
             this.buttonShortWay.Text = "Short Way";
+            this.toolTip.SetToolTip(this.buttonShortWay, "Click on two nodes to find a shortest path from one to another");
             this.buttonShortWay.UseVisualStyleBackColor = true;
             this.buttonShortWay.Click += new System.EventHandler(this.buttonShortWay_Click);
             // 
@@ -128,7 +139,7 @@
             this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1108, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1180, 24);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -226,7 +237,8 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.languageToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -234,9 +246,32 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // languageToolStripMenuItem
+            // 
+            this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.englishToolStripMenuItem,
+            this.russianToolStripMenuItem});
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.languageToolStripMenuItem.Text = "Language";
+            // 
+            // englishToolStripMenuItem
+            // 
+            this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.englishToolStripMenuItem.Text = "English";
+            this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
+            // 
+            // russianToolStripMenuItem
+            // 
+            this.russianToolStripMenuItem.Name = "russianToolStripMenuItem";
+            this.russianToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.russianToolStripMenuItem.Text = "Russian";
+            this.russianToolStripMenuItem.Click += new System.EventHandler(this.russianToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem1
             // 
@@ -250,43 +285,46 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(119, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(113, 6);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem1.Text = "&About...";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
-            // statusStrip1
+            // addBox
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 659);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1108, 22);
-            this.statusStrip1.TabIndex = 11;
-            this.statusStrip1.Text = "statusStrip1";
+            this.addBox.Controls.Add(this.buttonAddNode);
+            this.addBox.Controls.Add(this.buttonAddEdge);
+            this.addBox.Location = new System.Drawing.Point(1008, 27);
+            this.addBox.Name = "addBox";
+            this.addBox.Size = new System.Drawing.Size(160, 120);
+            this.addBox.TabIndex = 12;
+            this.addBox.TabStop = false;
+            this.addBox.Text = "groupBox1";
             // 
-            // toolStripStatusLabel1
+            // deleteBox
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.deleteBox.Controls.Add(this.buttonDeleteNode);
+            this.deleteBox.Controls.Add(this.buttonDeleteEdge);
+            this.deleteBox.Location = new System.Drawing.Point(1008, 153);
+            this.deleteBox.Name = "deleteBox";
+            this.deleteBox.Size = new System.Drawing.Size(160, 120);
+            this.deleteBox.TabIndex = 13;
+            this.deleteBox.TabStop = false;
+            this.deleteBox.Text = "groupBox2";
             // 
             // AgeichenkoTestTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1108, 681);
-            this.Controls.Add(this.statusStrip1);
+            this.ClientSize = new System.Drawing.Size(1180, 664);
+            this.Controls.Add(this.deleteBox);
+            this.Controls.Add(this.addBox);
             this.Controls.Add(this.buttonShortWay);
-            this.Controls.Add(this.buttonDeleteEdge);
-            this.Controls.Add(this.buttonDeleteNode);
             this.Controls.Add(this.pictureBoxGraph);
-            this.Controls.Add(this.buttonAddEdge);
-            this.Controls.Add(this.buttonAddNode);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AgeichenkoTestTask";
@@ -297,8 +335,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.addBox.ResumeLayout(false);
+            this.deleteBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -329,8 +367,12 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem russianToolStripMenuItem;
+        private System.Windows.Forms.GroupBox addBox;
+        private System.Windows.Forms.GroupBox deleteBox;
     }
 }
 

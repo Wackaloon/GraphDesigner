@@ -3,6 +3,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using GraphDesigner.Properties;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Resources;
+using System.Globalization;
 
 namespace GraphDesigner
 {
@@ -17,6 +20,7 @@ namespace GraphDesigner
         NodeClass nodeClickedFirst = null;
         NodeClass nodeClickedSecond = null;
         List<ToolTip> notifiers = null;
+        string currentLanguage;
 
 
         public AgeichenkoTestTask()
@@ -29,52 +33,40 @@ namespace GraphDesigner
             sqlHandler = new SqlHandlerClass();
             serializer = new SerializeHandlerClass();
             notifiers = new List<ToolTip>();
-            setupNotifiers();
-
+ 
             serializer.PaintBox = paintBox;
             graph.Graphic = paintBox;
-            updateSettings();
+            updateColorSettings();
 
-            buttonAddNode.Text = "Add node";
-            buttonAddEdge.Text = "Add edge";
-            buttonDeleteEdge.Text = "Delete edge";
-            buttonDeleteNode.Text = "Delete node";
-            saveToDatabaseToolStripMenuItem.Text = "Save to DB";
-            saveToFileToolStripMenuItem.Text = "Save to file";
-            loadFromDatabaseToolStripMenuItem.Text = "Load from DB";
-            loadFromFileToolStripMenuItem.Text = "Load from file";
-            buttonShortWay.Text = "Find short path";
-            toolStripStatusLabel1.Text = "Welcome!";
+            currentLanguage = "en";
+            switchLanguage(currentLanguage);
         }
+
+        /* +++++++++++++++++++++++ click evets handlers +++++++++++++++++++++++++*/
 
         private void buttonAddNode_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateNodeAdding;
-            toolStripStatusLabel1.Text = "Click on empty space to add node.";
         }
 
         private void buttonAddEdge_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateEdgeAdding;
-            toolStripStatusLabel1.Text = "Choose two nodes to add edge between them.";
         }
 
         private void buttonDeleteNode_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateNodeDeleting;
-            toolStripStatusLabel1.Text = "Click on node to delete it.";
         }
 
         private void buttonDeleteEdge_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateEdgeDeleting;
-            toolStripStatusLabel1.Text = "Click on edge to delete it.";
         }
 
         private void buttonShortWay_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stageShortWayFinding;
-            toolStripStatusLabel1.Text = "Choose two nodes to find shortest path between them.";
         }
 
         private void pictureBoxGraph_MouseClick(object sender, MouseEventArgs e)
@@ -96,8 +88,7 @@ namespace GraphDesigner
                 case stateEnum.stageShortWayFinding:
                     chooseTwoNodes(e);
                     break;
-            }
-            
+            } 
         }
 
         private void addNode(MouseEventArgs e)
@@ -120,7 +111,7 @@ namespace GraphDesigner
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            updateSettings();
+            updateColorSettings();
             graph.drawGraph();
         }
 
@@ -188,7 +179,7 @@ namespace GraphDesigner
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm settings = new SettingsForm();
+            SettingsForm settings = new SettingsForm(currentLanguage);
             settings.Show();
         }
 
@@ -208,7 +199,9 @@ namespace GraphDesigner
             graph.clearGraph();
         }
 
-        public  void updateSettings()
+        /* +++++++++++++++++++++++ END click evets handlers +++++++++++++++++++++++++*/
+
+        public void updateColorSettings()
         {
             graph.NodeColor = Settings.Default.NodeColor;
             graph.EdgeColor = Settings.Default.EdgeColor;
@@ -218,53 +211,79 @@ namespace GraphDesigner
 
         private void AgeichenkoTestTask_Load(object sender, EventArgs e)
         {
-            updateSettings();
-        }
-
-        private void setupNotifiers()
-        {
-
-            ToolTip notify = null;
-
-            notify = new ToolTip();
-            notify.ToolTipTitle = "NOTE!";
-            notify.SetToolTip(statusStrip1, "This string will help you! Look here from time to time.");
-            notifiers.Add(notify);
-
-            notify = new ToolTip();
-            notify.ToolTipTitle = "Adding a new node";
-            notify.SetToolTip(buttonAddNode, "Click on empty place on PaintBox to add new node");
-            notifiers.Add(notify);
-
-            notify = new ToolTip();
-            notify.ToolTipTitle = "Adding a new edge";
-            notify.SetToolTip(buttonAddEdge, "Click two nodes one by one and new edge will appear!");
-            notifiers.Add(notify);
-
-            notify = new ToolTip();
-            notify.ToolTipTitle = "Deleting an item!";
-            notify.SetToolTip(buttonDeleteEdge, "Click item to delete it.");
-            notify.SetToolTip(buttonDeleteNode, "Click item to delete it.");
-            notifiers.Add(notify);
-
-            notify = new ToolTip();
-            notify.ToolTipTitle = "Find shortest path!";
-            notify.SetToolTip(buttonShortWay, "Click two nodes one by one and shortest path will appear!");
-            notifiers.Add(notify);
-
-            foreach(ToolTip not in notifiers) { 
-                not.AutoPopDelay = 5000;
-                not.InitialDelay = 1000;
-                not.ReshowDelay = 500;
-                not.ShowAlways = true;
-                not.Active = true;
-            }
-
+            updateColorSettings();
         }
 
         private void AgeichenkoTestTask_Shown(object sender, EventArgs e)
         {
-            notifiers[0].Show("This string will help you! Look here from time to time.", this.statusStrip1, 5000);
+            graph.drawGraph();
         }
+
+        /* ++++++++++++++++++++++ language settings ++++++++++++++++++++++++++++++++*/
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // switch all texts to english language
+            currentLanguage = "en";
+            switchLanguage(currentLanguage);
+        }
+
+        private void russianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // switch all texts to russian language
+            currentLanguage = "ru";
+            switchLanguage(currentLanguage);
+        }
+
+        private void switchLanguage(string language)
+        {
+            // load current language texts
+            Assembly assemble = Assembly.Load("GraphDesigner");
+            ResourceManager resourceManager = new ResourceManager("GraphDesigner.Languages.Translation", assemble);
+            CultureInfo cultureInfo = new CultureInfo(language);
+
+            addBox.Text = resourceManager.GetString("addBoxS", cultureInfo);
+            deleteBox.Text = resourceManager.GetString("deleteBoxS", cultureInfo);
+
+            buttonAddNode.Text = resourceManager.GetString("addNodeS", cultureInfo);
+            buttonAddEdge.Text = resourceManager.GetString("addEdgeS", cultureInfo);
+            buttonDeleteEdge.Text = resourceManager.GetString("deleteEdgeS", cultureInfo);
+            buttonDeleteNode.Text = resourceManager.GetString("deleteNodeS", cultureInfo);
+            buttonShortWay.Text = resourceManager.GetString("findShortPathS", cultureInfo);
+
+            fileToolStripMenuItem1.Text = resourceManager.GetString("FileS", cultureInfo);
+
+                newToolStripMenuItem.Text = resourceManager.GetString("NewS", cultureInfo);
+
+                openToolStripMenuItem.Text = resourceManager.GetString("OpenS", cultureInfo);
+                    loadFromDatabaseToolStripMenuItem.Text = resourceManager.GetString("loadFromDBS", cultureInfo);
+                    loadFromFileToolStripMenuItem.Text = resourceManager.GetString("loadFromFileS", cultureInfo);
+                
+                saveToolStripMenuItem.Text = resourceManager.GetString("SaveS", cultureInfo);
+                    saveToDatabaseToolStripMenuItem.Text = resourceManager.GetString("saveToDBS", cultureInfo);
+                    saveToFileToolStripMenuItem.Text = resourceManager.GetString("saveToFileS", cultureInfo);
+
+                exitToolStripMenuItem1.Text = resourceManager.GetString("ExitS", cultureInfo);
+
+
+            toolsToolStripMenuItem.Text = resourceManager.GetString("ToolsS", cultureInfo);
+
+                optionsToolStripMenuItem.Text = resourceManager.GetString("OptionsS", cultureInfo);
+
+                languageToolStripMenuItem.Text = resourceManager.GetString("LanguageS", cultureInfo);
+                    englishToolStripMenuItem.Text = resourceManager.GetString("EnglishS", cultureInfo);
+                    russianToolStripMenuItem.Text = resourceManager.GetString("RussianS", cultureInfo);
+
+            helpToolStripMenuItem1.Text = resourceManager.GetString("HelpS", cultureInfo);
+
+                aboutToolStripMenuItem1.Text = resourceManager.GetString("AboutS", cultureInfo);
+
+            toolTip.SetToolTip(buttonAddNode, resourceManager.GetString("notaddNodeS", cultureInfo));
+            toolTip.SetToolTip(buttonAddEdge, resourceManager.GetString("notaddEdgeS", cultureInfo));
+            toolTip.SetToolTip(buttonDeleteEdge, resourceManager.GetString("notdeleteEdgeS", cultureInfo));
+            toolTip.SetToolTip(buttonDeleteNode, resourceManager.GetString("notdeleteNodeS", cultureInfo));
+            toolTip.SetToolTip(buttonShortWay, resourceManager.GetString("notfindShortPathS", cultureInfo));
+        }
+        /* ++++++++++++++++++++++ END language settings ++++++++++++++++++++++++++++++++*/
     }
 }

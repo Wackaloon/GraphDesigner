@@ -77,6 +77,16 @@
       <DependentUpon>AgeichenkoTestTask.cs</DependentUpon>
     </Compile>
     <Compile Include="GraphClass.cs" />
+    <Compile Include="Languages\Translation.ru.Designer.cs">
+      <DependentUpon>Translation.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Languages\Translation.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Translation.resx</DependentUpon>
+    </Compile>
     <Compile Include="NodeClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +104,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgeichenkoTestTask.resx">
       <DependentUpon>AgeichenkoTestTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Translation.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Translation.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Translation.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Translation.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using GraphDesigner.Properties;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
-using GraphDesigner.Properties;
 
 namespace GraphDesigner
 {
     public partial class SettingsForm : Form
     {
-        public SettingsForm()
+        public SettingsForm(string language)
         {
             InitializeComponent();
-            labelNode.Text = "Node color";
-            labelEdge.Text = "Edge color";
-            labelEdgeShort.Text = "Short path edge color";
-            labelNodeShort.Text = "Short path node color";
-            buttonAccept.Text = "Accept";
+            // initialize texts
+            switchLanguage(language);
+            // prepare combo boxes
             confugureComboBox(comboBox1);
             confugureComboBox(comboBox2);
             confugureComboBox(comboBox3);
@@ -30,6 +25,7 @@ namespace GraphDesigner
 
         private void confugureComboBox(ComboBox combo)
         {
+            // fill combo box with colors
             combo.DrawMode = DrawMode.OwnerDrawVariable; ;
             foreach (System.Reflection.PropertyInfo prop in typeof(Color).GetProperties())
             {
@@ -68,6 +64,7 @@ namespace GraphDesigner
 
         private void buttonAccept_Click(object sender, EventArgs e)
         {
+            // accept choosen colors
             if (comboBox1.SelectedIndex >= 0)
                 Settings.Default.NodeColor = Color.FromName(comboBox1.Text);
             if (comboBox2.SelectedIndex >= 0)
@@ -84,6 +81,7 @@ namespace GraphDesigner
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            // initialize default combobox values with existing color settings
             string name = Settings.Default.NodeColor.Name;
             int index = comboBox1.Items.IndexOf(name);
             comboBox1.SelectedIndex = index;
@@ -100,6 +98,21 @@ namespace GraphDesigner
             index = comboBox4.Items.IndexOf(name);
             comboBox4.SelectedIndex = index;
 
+        }
+
+        private void switchLanguage(string language)
+        {
+            // load current language texts
+            Assembly assemble = Assembly.Load("GraphDesigner");
+            ResourceManager resourceManager = new ResourceManager("GraphDesigner.Languages.Translation", assemble);
+            CultureInfo cultureInfo = new CultureInfo(language);
+
+            labelNode.Text = resourceManager.GetString("nodeColorS", cultureInfo);
+            labelEdge.Text = resourceManager.GetString("edgeColorS", cultureInfo);
+            labelEdgeShort.Text = resourceManager.GetString("shortEdgeColorS", cultureInfo);
+            labelNodeShort.Text = resourceManager.GetString("shortNodeColorS", cultureInfo);
+            buttonAccept.Text = resourceManager.GetString("AcceptS", cultureInfo);
+            this.Text = resourceManager.GetString("OptionsS", cultureInfo);
         }
     }
 }
