@@ -59,6 +59,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.addBox = new System.Windows.Forms.GroupBox();
             this.deleteBox = new System.Windows.Forms.GroupBox();
+            this.labelInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.addBox.SuspendLayout();
@@ -316,11 +317,20 @@
             this.deleteBox.TabStop = false;
             this.deleteBox.Text = "groupBox2";
             // 
+            // labelInfo
+            // 
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Location = new System.Drawing.Point(1005, 638);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(0, 13);
+            this.labelInfo.TabIndex = 14;
+            // 
             // AgeichenkoTestTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1180, 664);
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.deleteBox);
             this.Controls.Add(this.addBox);
             this.Controls.Add(this.buttonShortWay);
@@ -374,6 +384,7 @@
         private System.Windows.Forms.ToolStripMenuItem russianToolStripMenuItem;
         private System.Windows.Forms.GroupBox addBox;
         private System.Windows.Forms.GroupBox deleteBox;
+        private System.Windows.Forms.Label labelInfo;
     }
 }
 

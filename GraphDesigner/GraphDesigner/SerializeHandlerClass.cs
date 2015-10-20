@@ -25,7 +25,7 @@ namespace GraphDesigner
             }
         }
 
-        public void saveGraphToFile(GraphClass graph)
+        public bool saveGraphToFile(GraphClass graph)
         {
             // saving to user named file and user selected dir
 
@@ -44,8 +44,12 @@ namespace GraphDesigner
                     serializer.Serialize(TestFileStream, graph);
                     TestFileStream.Close();
                 }
+                else
+                {
+                    return false;
+                }
             }
-            
+            return true;
         }
 
         public GraphClass loadGraphFromFile()

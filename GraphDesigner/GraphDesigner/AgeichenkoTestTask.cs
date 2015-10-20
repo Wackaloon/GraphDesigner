@@ -47,26 +47,31 @@ namespace GraphDesigner
         private void buttonAddNode_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateNodeAdding;
+            labelInfo.Text = "";
         }
 
         private void buttonAddEdge_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateEdgeAdding;
+            labelInfo.Text = "";
         }
 
         private void buttonDeleteNode_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateNodeDeleting;
+            labelInfo.Text = "";
         }
 
         private void buttonDeleteEdge_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateEdgeDeleting;
+            labelInfo.Text = "";
         }
 
         private void buttonShortWay_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stageShortWayFinding;
+            labelInfo.Text = "";
         }
 
         private void pictureBoxGraph_MouseClick(object sender, MouseEventArgs e)
@@ -154,28 +159,7 @@ namespace GraphDesigner
             }
         }
 
-        // save to DB
-        private void toDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sqlHandler.saveGraphToDB(graph);
-        }
-        //save to file
-        private void toFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            serializer.saveGraphToFile(graph);
-        }
-        // load from DB
-        private void fromDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            graph.clearGraph();
-            sqlHandler.loadGraphFromDB(graph);
-        }
-        // load from file
-        private void fromFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            graph = null;
-            graph = serializer.loadGraphFromFile();
-        }
+
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -200,6 +184,49 @@ namespace GraphDesigner
         }
 
         /* +++++++++++++++++++++++ END click evets handlers +++++++++++++++++++++++++*/
+
+        // save to DB
+        private void toDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sqlHandler.saveGraphToDB(graph))
+                infoUpdate("InfoSuccessSaveS");
+            else
+                infoUpdate("InfoFailSaveS");
+        }
+        //save to file
+        private void toFileToolStripMenuItem_Click(object sender, EventArgs e)
+        { 
+            if (serializer.saveGraphToFile(graph))
+                infoUpdate("InfoSuccessSaveS");
+            else
+                infoUpdate("InfoFailSaveS");
+        }
+        // load from DB
+        private void fromDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sqlHandler.loadGraphFromDB(graph))
+                infoUpdate("InfoSuccessLoadS");
+            else
+                infoUpdate("InfoFailLoadS");
+        }
+        // load from file
+        private void fromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graph = null;
+            graph = serializer.loadGraphFromFile();
+            if (graph != null)
+            {
+                infoUpdate("InfoSuccessLoadS");
+            }
+            else
+            {
+                infoUpdate("InfoFailLoadS");
+                graph = new GraphClass();
+                graph.Graphic = paintBox;
+            }
+                
+        }
+
 
         public void updateColorSettings()
         {
@@ -283,6 +310,15 @@ namespace GraphDesigner
             toolTip.SetToolTip(buttonDeleteEdge, resourceManager.GetString("notdeleteEdgeS", cultureInfo));
             toolTip.SetToolTip(buttonDeleteNode, resourceManager.GetString("notdeleteNodeS", cultureInfo));
             toolTip.SetToolTip(buttonShortWay, resourceManager.GetString("notfindShortPathS", cultureInfo));
+        }
+
+        private void infoUpdate(string infoString)
+        {
+            // load current language texts
+            Assembly assemble = Assembly.Load("GraphDesigner");
+            ResourceManager resourceManager = new ResourceManager("GraphDesigner.Languages.Translation", assemble);
+            CultureInfo cultureInfo = new CultureInfo(currentLanguage);
+            labelInfo.Text = resourceManager.GetString(infoString, cultureInfo);
         }
         /* ++++++++++++++++++++++ END language settings ++++++++++++++++++++++++++++++++*/
     }

@@ -187,6 +187,42 @@ namespace GraphDesigner.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Graph was not loaded. Error!.
+        /// </summary>
+        internal static string InfoFailLoadS {
+            get {
+                return ResourceManager.GetString("InfoFailLoadS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graph was not saved. Error!.
+        /// </summary>
+        internal static string InfoFailSaveS {
+            get {
+                return ResourceManager.GetString("InfoFailSaveS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graph loaded!.
+        /// </summary>
+        internal static string InfoSuccessLoadS {
+            get {
+                return ResourceManager.GetString("InfoSuccessLoadS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graph saved!.
+        /// </summary>
+        internal static string InfoSuccessSaveS {
+            get {
+                return ResourceManager.GetString("InfoSuccessSaveS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string LanguageS {

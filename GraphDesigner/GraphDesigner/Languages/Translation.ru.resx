@@ -216,4 +216,16 @@
   <data name="ToolsS" xml:space="preserve">
     <value>Инструменты</value>
   </data>
+  <data name="InfoFailLoadS" xml:space="preserve">
+    <value>Граф не был загружен. Ошибка!</value>
+  </data>
+  <data name="InfoFailSaveS" xml:space="preserve">
+    <value>Граф не был сохранен. Ошибка!</value>
+  </data>
+  <data name="InfoSuccessLoadS" xml:space="preserve">
+    <value>Граф загружен!</value>
+  </data>
+  <data name="InfoSuccessSaveS" xml:space="preserve">
+    <value>Граф сохранен!</value>
+  </data>
 </root>

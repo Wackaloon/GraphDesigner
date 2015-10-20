@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 
+
 namespace GraphDesigner
 {
     [Serializable()]
@@ -21,7 +22,7 @@ namespace GraphDesigner
             sqlCommand.Connection = sqlConnect;
         }
 
-        public void saveGraphToDB(GraphClass graph)
+        public bool saveGraphToDB(GraphClass graph)
         {
             int EdgeId = 0;
             int EdgeParent = 0;
@@ -29,8 +30,16 @@ namespace GraphDesigner
             int NodeId = 0;
             int NodeX = 0;
             int NodeY = 0;
-
-            sqlConnect.Open();
+            try
+            {
+                sqlConnect.Open();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: Could not open  database. Original error: " + ex.Message);
+                return false;
+            }
+            
 
             //clear all  data
             sqlCommand.CommandText = "delete from Nodes";
@@ -67,9 +76,10 @@ namespace GraphDesigner
             }
             sqlConnect.Close();
             // end of insert
+            return true;
         }
 
-        public void loadGraphFromDB(GraphClass graph)
+        public bool loadGraphFromDB(GraphClass graph)
         {
             int EdgeId = 0;
             int EdgeParent = 0;
@@ -79,8 +89,16 @@ namespace GraphDesigner
             int NodeY = -1;
 
             //read data
-            sqlConnect.Open();
-
+            try
+            {
+                sqlConnect.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: Could not open  database. Original error: " + ex.Message);
+                return false;
+            }
+            graph.clearGraph();
             // read nodes
             sqlCommand.CommandText = "select * from Nodes";
             sqlDataReader = sqlCommand.ExecuteReader();
@@ -143,6 +161,7 @@ namespace GraphDesigner
             //end of read data
 
             graph.drawGraph();
+            return true;
         }
     }
 }
