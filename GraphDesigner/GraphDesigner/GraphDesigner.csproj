@@ -23,9 +23,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <TargetCulture>ru</TargetCulture>
+    <ProductName>Graph Designer</ProductName>
+    <PublisherName>Ageychenko Alexander</PublisherName>
+    <SuiteName>Ageychenko</SuiteName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -53,18 +60,22 @@
   <PropertyGroup>
     <StartupObject>GraphDesigner.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>6A11BCC93B9F4E9CDE73F2C6CCE538DBE91072A7</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>GraphDesigner_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\SqlCompact\System.Data.SqlServerCe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\SqlCompact\System.Data.SqlServerCe.Entity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -155,6 +166,7 @@
     <None Include="GraphDBDataSet.xss">
       <DependentUpon>GraphDBDataSet.xsd</DependentUpon>
     </None>
+    <None Include="GraphDesigner_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -177,22 +189,6 @@
       <DependentUpon>GraphDB.mdf</DependentUpon>
     </Content>
     <Content Include="GraphDesigner.ico" />
-    <Content Include="Libraries\SqlCompact\AMD64\sqlceca40.dll" />
-    <Content Include="Libraries\SqlCompact\AMD64\sqlcecompact40.dll" />
-    <Content Include="Libraries\SqlCompact\AMD64\sqlceer40EN.dll" />
-    <Content Include="Libraries\SqlCompact\AMD64\sqlceer40RU.dll" />
-    <Content Include="Libraries\SqlCompact\AMD64\sqlceme40.dll" />
-    <Content Include="Libraries\SqlCompact\AMD64\sqlceqp40.dll" />
-    <Content Include="Libraries\SqlCompact\AMD64\sqlcese40.dll" />
-    <Content Include="Libraries\SqlCompact\System.Data.SqlServerCe.dll" />
-    <Content Include="Libraries\SqlCompact\System.Data.SqlServerCe.Entity.dll" />
-    <Content Include="Libraries\SqlCompact\X86\sqlceca40.dll" />
-    <Content Include="Libraries\SqlCompact\X86\sqlcecompact40.dll" />
-    <Content Include="Libraries\SqlCompact\X86\sqlceer40EN.dll" />
-    <Content Include="Libraries\SqlCompact\X86\sqlceer40RU.dll" />
-    <Content Include="Libraries\SqlCompact\X86\sqlceme40.dll" />
-    <Content Include="Libraries\SqlCompact\X86\sqlceqp40.dll" />
-    <Content Include="Libraries\SqlCompact\X86\sqlcese40.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -204,6 +200,11 @@
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SqlServer.SqlLocalDB.11.1">
+      <Visible>False</Visible>
+      <ProductName>SQL Server 2012 Express LocalDB</ProductName>
+      <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />

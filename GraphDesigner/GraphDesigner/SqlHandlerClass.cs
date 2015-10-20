@@ -15,9 +15,9 @@ namespace GraphDesigner
         private SqlCommand sqlCommand;
         [field: NonSerialized()]
         private SqlDataReader sqlDataReader;
-        public SqlHandlerClass()
+        public SqlHandlerClass(string connectionString)
         {
-            sqlConnect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|GraphDB.mdf;Integrated Security=True");
+            sqlConnect = new SqlConnection(@connectionString);
             sqlCommand = new SqlCommand();
             sqlCommand.Connection = sqlConnect;
         }

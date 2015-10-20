@@ -30,13 +30,11 @@ namespace GraphDesigner
             paintBox = pictureBoxGraph.CreateGraphics();
 
             graph = new GraphClass();
-            sqlHandler = new SqlHandlerClass();
+            sqlHandler = new SqlHandlerClass(Settings.Default.GraphDBConnectionString);
             serializer = new SerializeHandlerClass();
             notifiers = new List<ToolTip>();
- 
-            serializer.PaintBox = paintBox;
-            graph.Graphic = paintBox;
-            updateColorSettings();
+
+            updatePaintingSettings();
 
             currentLanguage = "en";
             switchLanguage(currentLanguage);
@@ -116,7 +114,7 @@ namespace GraphDesigner
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            updateColorSettings();
+            updatePaintingSettings();
             graph.drawGraph();
         }
 
@@ -212,24 +210,26 @@ namespace GraphDesigner
         // load from file
         private void fromFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            graph = null;
-            graph = serializer.loadGraphFromFile();
-            if (graph != null)
+            GraphClass newGraph = null;
+            newGraph = serializer.loadGraphFromFile();
+            if (newGraph != null)
             {
+                graph = newGraph;
+                updatePaintingSettings();
+                graph.drawGraph();
                 infoUpdate("InfoSuccessLoadS");
             }
             else
             {
                 infoUpdate("InfoFailLoadS");
-                graph = new GraphClass();
-                graph.Graphic = paintBox;
             }
                 
         }
 
 
-        public void updateColorSettings()
+        public void updatePaintingSettings()
         {
+            graph.Graphic = paintBox;
             graph.NodeColor = Settings.Default.NodeColor;
             graph.EdgeColor = Settings.Default.EdgeColor;
             graph.ShortPathEdgeColor = Settings.Default.ShortPathEdgeColor;
@@ -238,11 +238,12 @@ namespace GraphDesigner
 
         private void AgeichenkoTestTask_Load(object sender, EventArgs e)
         {
-            updateColorSettings();
+            updatePaintingSettings();
         }
 
         private void AgeichenkoTestTask_Shown(object sender, EventArgs e)
         {
+            updatePaintingSettings();
             graph.drawGraph();
         }
 

@@ -10,20 +10,6 @@ namespace GraphDesigner
     class SerializeHandlerClass
     {
         [field: NonSerialized()]
-        private Graphics paintBox;
-
-        public Graphics PaintBox
-        {
-            get
-            {
-                return paintBox;
-            }
-
-            set
-            {
-                paintBox = value;
-            }
-        }
 
         public bool saveGraphToFile(GraphClass graph)
         {
@@ -74,8 +60,6 @@ namespace GraphDesigner
                         BinaryFormatter deserializer = new BinaryFormatter();
                         graph = (GraphClass)deserializer.Deserialize(TestFileStream);
                         TestFileStream.Close();
-                        graph.Graphic = paintBox;
-                        graph.drawGraph();
                         return graph;
                     }
                 }
