@@ -305,7 +305,7 @@
             this.addBox.Size = new System.Drawing.Size(160, 120);
             this.addBox.TabIndex = 12;
             this.addBox.TabStop = false;
-            this.addBox.Text = "groupBox1";
+            this.addBox.Text = "Add";
             // 
             // deleteBox
             // 
@@ -316,7 +316,7 @@
             this.deleteBox.Size = new System.Drawing.Size(160, 120);
             this.deleteBox.TabIndex = 13;
             this.deleteBox.TabStop = false;
-            this.deleteBox.Text = "groupBox2";
+            this.deleteBox.Text = "Delete";
             // 
             // labelInfo
             // 
@@ -331,9 +331,9 @@
             this.labelInfoStatic.AutoSize = true;
             this.labelInfoStatic.Location = new System.Drawing.Point(999, 622);
             this.labelInfoStatic.Name = "labelInfoStatic";
-            this.labelInfoStatic.Size = new System.Drawing.Size(35, 13);
+            this.labelInfoStatic.Size = new System.Drawing.Size(25, 13);
             this.labelInfoStatic.TabIndex = 15;
-            this.labelInfoStatic.Text = "label1";
+            this.labelInfoStatic.Text = "Info";
             // 
             // AgeichenkoTestTask
             // 
