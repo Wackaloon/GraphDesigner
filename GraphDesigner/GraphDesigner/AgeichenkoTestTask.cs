@@ -30,7 +30,7 @@ namespace GraphDesigner
             paintBox = pictureBoxGraph.CreateGraphics();
 
             graph = new GraphClass();
-            sqlHandler = new SqlHandlerClass(Settings.Default.GraphDBConnectionString);
+            sqlHandler = new SqlHandlerClass();
             serializer = new SerializeHandlerClass();
             notifiers = new List<ToolTip>();
 

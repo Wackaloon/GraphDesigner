@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 
@@ -11,16 +12,89 @@ namespace GraphDesigner
     {
         [field: NonSerialized()]
         private SqlConnection sqlConnect;
+
         [field: NonSerialized()]
         private SqlCommand sqlCommand;
+
         [field: NonSerialized()]
         private SqlDataReader sqlDataReader;
-        public SqlHandlerClass(string connectionString)
+
+        public SqlHandlerClass()
         {
-            sqlConnect = new SqlConnection(@connectionString);
             sqlCommand = new SqlCommand();
-            sqlCommand.Connection = sqlConnect;
+            /*
+             Data Source - server name, by default (local)\SQLEXPRESS
+             Initial Catalog - DB name
+             Integrated Security - something important
+             */
+            string connStr = @"Data Source=(local)\SQLEXPRESS;
+                            Initial Catalog=GrapgDB;
+                            Integrated Security=True";
+            // is this data base exist?
+            sqlConnect = new SqlConnection(connStr);
+            try
+            {
+                sqlConnect.Open();
+            }
+            catch (SqlException existanceE)
+            {
+                // if DB was not found
+                if (existanceE.Number == 4060)
+                {
+
+                    sqlConnect.Close();
+
+                    sqlConnect = new SqlConnection(@"Data Source=(local)\SQLEXPRESS;
+                                                   Integrated Security=True");
+                    // DB creating request
+                    SqlCommand cmdCreateDataBase = new SqlCommand(string.Format("CREATE DATABASE [{0}]", "GrapgDB"), sqlConnect);
+ 
+                    sqlConnect.Open();
+
+                    cmdCreateDataBase.ExecuteNonQuery();
+
+                    sqlConnect.Close();
+                    //wait DB to be created
+                    Thread.Sleep(5000);
+                    sqlConnect = new SqlConnection(connStr);
+                    try
+                    {
+                        sqlConnect.Open();
+                    }
+                    catch (SqlException openE)
+                    {
+                        MessageBox.Show("Error: Unable to open database. Original error: " + openE.Message);
+                        return;
+                    }
+
+                    //request for table creation
+                    SqlCommand cmdCreateTableEdges = new SqlCommand("CREATE TABLE " +
+                                                                    "Edges (EdgeId int not null" +
+                                                                    ", EdgeParent int not null," +
+                                                                    "  EdgeDestination int not null)", sqlConnect);
+
+                    SqlCommand cmdCreateTableNodes = new SqlCommand("CREATE TABLE " +
+                                                                    "Nodes (NodeId int not null" +
+                                                                    ", NodeX int not null," +
+                                                                    "  NodeY int not null)", sqlConnect);
+                    //send request
+                    try
+                    {
+                        cmdCreateTableEdges.ExecuteNonQuery();
+                        cmdCreateTableNodes.ExecuteNonQuery();
+                    }
+                    catch (SqlException createTableE)
+                    {
+                        MessageBox.Show("Error: Unable to create a table in the database. Original error: " + createTableE.Message);
+                        return;
+                    }
+                    //close connection
+                    sqlConnect.Close();
+                }
+
+            }
         }
+
 
         public bool saveGraphToDB(GraphClass graph)
         {
@@ -30,6 +104,7 @@ namespace GraphDesigner
             int NodeId = 0;
             int NodeX = 0;
             int NodeY = 0;
+
             try
             {
                 sqlConnect.Open();
@@ -39,7 +114,6 @@ namespace GraphDesigner
                 MessageBox.Show("Error: Could not open  database. Original error: " + ex.Message);
                 return false;
             }
-            
 
             //clear all  data
             sqlCommand.CommandText = "delete from Nodes";
@@ -55,16 +129,20 @@ namespace GraphDesigner
                         NodeId = node.NodeNumber;
                         NodeX = node.NodePosition.X;
                         NodeY = node.NodePosition.Y;
+
                         sqlCommand.CommandText = "insert into Nodes (NodeId, NodeX, NodeY) "
                                + "values ('" + NodeId + "','" + NodeX + "','" + NodeY + "')";
+
                         sqlCommand.ExecuteNonQuery();
 
                         foreach (EdgeClass edge in node.nodeEdges)
                         {
                             EdgeParent = node.NodeNumber;
                             EdgeDestination = edge.NextNode.NodeNumber;
+
                             sqlCommand.CommandText = "insert into Edges (EdgeId, EdgeParent, EdgeDestination) "
                                            + "values ('" + EdgeId++ + "','" + EdgeParent + "','" + EdgeDestination + "')";
+
                             sqlCommand.ExecuteNonQuery();
                         }
 
@@ -74,8 +152,10 @@ namespace GraphDesigner
             {
                 MessageBox.Show("Error: Could not insert data into database. Original error: " + ex.Message);
             }
+
             sqlConnect.Close();
             // end of insert
+
             return true;
         }
 
@@ -98,10 +178,13 @@ namespace GraphDesigner
                 MessageBox.Show("Error: Could not open  database. Original error: " + ex.Message);
                 return false;
             }
+
             graph.clearGraph();
+
             // read nodes
             sqlCommand.CommandText = "select * from Nodes";
             sqlDataReader = sqlCommand.ExecuteReader();
+
             if (sqlDataReader.HasRows)
             {
                 while (sqlDataReader.Read())
@@ -109,6 +192,7 @@ namespace GraphDesigner
                     NodeId = -1;
                     NodeX = -1;
                     NodeY = -1;
+
                     NodeId = Convert.ToInt32(sqlDataReader[0].ToString());
                     NodeX = Convert.ToInt32(sqlDataReader[1].ToString());
                     NodeY = Convert.ToInt32(sqlDataReader[2].ToString());
@@ -130,6 +214,7 @@ namespace GraphDesigner
             // read Edges
             sqlCommand.CommandText = "select * from Edges";
             sqlDataReader = sqlCommand.ExecuteReader();
+
             if (sqlDataReader.HasRows)
             {
                 while (sqlDataReader.Read())
@@ -161,6 +246,7 @@ namespace GraphDesigner
             //end of read data
 
             graph.drawGraph();
+
             return true;
         }
     }
