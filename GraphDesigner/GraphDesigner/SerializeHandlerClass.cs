@@ -9,7 +9,6 @@ namespace GraphDesigner
     [Serializable()]
     class SerializeHandlerClass
     {
-        [field: NonSerialized()]
 
         public bool saveGraphToFile(GraphClass graph)
         {

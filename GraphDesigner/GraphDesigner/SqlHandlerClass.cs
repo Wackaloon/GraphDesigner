@@ -27,9 +27,7 @@ namespace GraphDesigner
              Initial Catalog - DB name
              Integrated Security - something important
              */
-            string connStr = @"Data Source=(local)\SQLEXPRESS;
-                            Initial Catalog=GrapgDB;
-                            Integrated Security=True";
+            string connStr = @"Data Source=(LocalDB)\v11.0;Initial Catalog=GraphDBv11;Integrated Security=True";
             // is this data base exist?
             sqlConnect = new SqlConnection(connStr);
             try
@@ -44,10 +42,10 @@ namespace GraphDesigner
 
                     sqlConnect.Close();
 
-                    sqlConnect = new SqlConnection(@"Data Source=(local)\SQLEXPRESS;
-                                                   Integrated Security=True");
+                    sqlConnect = new SqlConnection(@"Data Source=(LocalDB)\v11.0;
+                                                    Integrated Security=True");
                     // DB creating request
-                    SqlCommand cmdCreateDataBase = new SqlCommand(string.Format("CREATE DATABASE [{0}]", "GrapgDB"), sqlConnect);
+                    SqlCommand cmdCreateDataBase = new SqlCommand(string.Format("CREATE DATABASE [{0}]", "GraphDBv11"), sqlConnect);
  
                     sqlConnect.Open();
 
@@ -64,7 +62,6 @@ namespace GraphDesigner
                     catch (SqlException openE)
                     {
                         MessageBox.Show("Error: Unable to open database. Original error: " + openE.Message);
-                        return;
                     }
 
                     //request for table creation
@@ -86,12 +83,18 @@ namespace GraphDesigner
                     catch (SqlException createTableE)
                     {
                         MessageBox.Show("Error: Unable to create a table in the database. Original error: " + createTableE.Message);
-                        return;
                     }
-                    //close connection
-                    sqlConnect.Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("Error: Unexpected error Original error: " + existanceE.Message);
                 }
 
+            }
+            finally
+            {
+                sqlConnect.Close();
             }
         }
 
@@ -104,10 +107,14 @@ namespace GraphDesigner
             int NodeId = 0;
             int NodeX = 0;
             int NodeY = 0;
-
+            
+            string connStr = @"Data Source=(LocalDB)\v11.0;Initial Catalog=GraphDBv11;Integrated Security=True";
+            // is this data base exist?
+            sqlConnect = new SqlConnection(connStr);
             try
             {
                 sqlConnect.Open();
+                sqlCommand.Connection = sqlConnect;
             }
             catch(Exception ex)
             {

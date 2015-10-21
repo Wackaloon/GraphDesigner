@@ -28,8 +28,8 @@
     <PublisherName>Ageychenko Alexander</PublisherName>
     <SuiteName>Ageychenko</SuiteName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>4</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -102,11 +102,6 @@
       <DependentUpon>AgeichenkoTestTask.cs</DependentUpon>
     </Compile>
     <Compile Include="GraphClass.cs" />
-    <Compile Include="GraphDBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GraphDBDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Languages\Translation.ru.Designer.cs">
       <DependentUpon>Translation.ru.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -155,17 +150,6 @@
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="GraphDBDataSet.xsc">
-      <DependentUpon>GraphDBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="GraphDBDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>GraphDBDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="GraphDBDataSet.xss">
-      <DependentUpon>GraphDBDataSet.xsd</DependentUpon>
-    </None>
     <None Include="GraphDesigner_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -181,13 +165,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GraphDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GraphDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>GraphDB.mdf</DependentUpon>
-    </Content>
     <Content Include="GraphDesigner.ico" />
   </ItemGroup>
   <ItemGroup>
