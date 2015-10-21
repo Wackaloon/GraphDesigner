@@ -45,31 +45,31 @@ namespace GraphDesigner
         private void buttonAddNode_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateNodeAdding;
-            labelInfo.Text = "";
+            infoUpdate("InfoTextDefaultS");
         }
 
         private void buttonAddEdge_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateEdgeAdding;
-            labelInfo.Text = "";
+            infoUpdate("InfoTextDefaultS");
         }
 
         private void buttonDeleteNode_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateNodeDeleting;
-            labelInfo.Text = "";
+            infoUpdate("InfoTextDefaultS");
         }
 
         private void buttonDeleteEdge_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stateEdgeDeleting;
-            labelInfo.Text = "";
+            infoUpdate("InfoTextDefaultS");
         }
 
         private void buttonShortWay_Click(object sender, EventArgs e)
         {
             stateOfForm = stateEnum.stageShortWayFinding;
-            labelInfo.Text = "";
+            infoUpdate("InfoTextDefaultS");
         }
 
         private void pictureBoxGraph_MouseClick(object sender, MouseEventArgs e)
@@ -148,7 +148,8 @@ namespace GraphDesigner
                         break;
 
                     case stateEnum.stageShortWayFinding:
-                        graph.shortPathCalculation(nodeClickedFirst, nodeClickedSecond);
+                        if(!graph.shortPathCalculation(nodeClickedFirst, nodeClickedSecond));
+                            infoUpdate("PathNotExistS");
                         break;
                 }
 
@@ -311,6 +312,9 @@ namespace GraphDesigner
             toolTip.SetToolTip(buttonDeleteEdge, resourceManager.GetString("notdeleteEdgeS", cultureInfo));
             toolTip.SetToolTip(buttonDeleteNode, resourceManager.GetString("notdeleteNodeS", cultureInfo));
             toolTip.SetToolTip(buttonShortWay, resourceManager.GetString("notfindShortPathS", cultureInfo));
+
+            labelInfoStatic.Text = resourceManager.GetString("InfoLabelS", cultureInfo);
+            labelInfo.Text = resourceManager.GetString("InfoTextDefaultS", cultureInfo);
         }
 
         private void infoUpdate(string infoString)

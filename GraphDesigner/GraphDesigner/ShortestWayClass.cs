@@ -74,7 +74,8 @@ namespace GraphDesigner
             // find a way back from end to start and reverse it
             ArrayList path = new ArrayList(); ;
             for (int v = graph.findNodeIndexByNodeNumber(toThis.NodeNumber); 
-                     v != graph.findNodeIndexByNodeNumber(fromThis.NodeNumber); v = p[v])
+                     (v != graph.findNodeIndexByNodeNumber(fromThis.NodeNumber))&&(v > 0);
+                     v = p[v])
                 path.Add(v);
             path.Add(fromThis.NodeNumber);
             path.Reverse();

@@ -60,6 +60,7 @@
             this.addBox = new System.Windows.Forms.GroupBox();
             this.deleteBox = new System.Windows.Forms.GroupBox();
             this.labelInfo = new System.Windows.Forms.Label();
+            this.labelInfoStatic = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.addBox.SuspendLayout();
@@ -140,7 +141,7 @@
             this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1180, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1195, 24);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -325,11 +326,21 @@
             this.labelInfo.Size = new System.Drawing.Size(0, 13);
             this.labelInfo.TabIndex = 14;
             // 
+            // labelInfoStatic
+            // 
+            this.labelInfoStatic.AutoSize = true;
+            this.labelInfoStatic.Location = new System.Drawing.Point(999, 622);
+            this.labelInfoStatic.Name = "labelInfoStatic";
+            this.labelInfoStatic.Size = new System.Drawing.Size(35, 13);
+            this.labelInfoStatic.TabIndex = 15;
+            this.labelInfoStatic.Text = "label1";
+            // 
             // AgeichenkoTestTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1180, 664);
+            this.ClientSize = new System.Drawing.Size(1195, 664);
+            this.Controls.Add(this.labelInfoStatic);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.deleteBox);
             this.Controls.Add(this.addBox);
@@ -385,6 +396,7 @@
         private System.Windows.Forms.GroupBox addBox;
         private System.Windows.Forms.GroupBox deleteBox;
         private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Label labelInfoStatic;
     }
 }
 

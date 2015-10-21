@@ -205,6 +205,15 @@ namespace GraphDesigner.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information:.
+        /// </summary>
+        internal static string InfoLabelS {
+            get {
+                return ResourceManager.GetString("InfoLabelS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Graph loaded!.
         /// </summary>
         internal static string InfoSuccessLoadS {
@@ -219,6 +228,15 @@ namespace GraphDesigner.Languages {
         internal static string InfoSuccessSaveS {
             get {
                 return ResourceManager.GetString("InfoSuccessSaveS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every button have a tool tip on it!.
+        /// </summary>
+        internal static string InfoTextDefaultS {
+            get {
+                return ResourceManager.GetString("InfoTextDefaultS", resourceCulture);
             }
         }
         
@@ -336,6 +354,15 @@ namespace GraphDesigner.Languages {
         internal static string OptionsS {
             get {
                 return ResourceManager.GetString("OptionsS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path do not exist.
+        /// </summary>
+        internal static string PathNotExistS {
+            get {
+                return ResourceManager.GetString("PathNotExistS", resourceCulture);
             }
         }
         

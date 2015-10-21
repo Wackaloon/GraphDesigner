@@ -265,7 +265,7 @@ namespace GraphDesigner
 
 
         /* ++++++++++++++++ Functions for inner math  ++++++++++++++++++++++++++++++++*/
-        public void shortPathCalculation(NodeClass nodeClickedFirst, NodeClass nodeClickedSecond)
+        public bool shortPathCalculation(NodeClass nodeClickedFirst, NodeClass nodeClickedSecond)
         {
             shortWay.SizeOfNodes = numberOfNodes();
             shortWay.resetParams();
@@ -276,6 +276,9 @@ namespace GraphDesigner
                 drawGraph();
                 drawShortPath(path);
             }
+            if (path.Count == 1)
+                return false;
+            return true;
         }
 
         public int findNodeIndexByNodeNumber(int nodeNumber)

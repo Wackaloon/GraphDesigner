@@ -231,4 +231,13 @@
   <data name="InfoSuccessSaveS" xml:space="preserve">
     <value>Graph saved!</value>
   </data>
+  <data name="InfoLabelS" xml:space="preserve">
+    <value>Information:</value>
+  </data>
+  <data name="InfoTextDefaultS" xml:space="preserve">
+    <value>Every button have a tool tip on it!</value>
+  </data>
+  <data name="PathNotExistS" xml:space="preserve">
+    <value>Path do not exist</value>
+  </data>
 </root>

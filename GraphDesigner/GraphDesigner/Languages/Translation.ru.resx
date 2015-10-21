@@ -228,4 +228,13 @@
   <data name="InfoSuccessSaveS" xml:space="preserve">
     <value>Граф сохранен!</value>
   </data>
+  <data name="InfoLabelS" xml:space="preserve">
+    <value>Информация:</value>
+  </data>
+  <data name="InfoTextDefaultS" xml:space="preserve">
+    <value>У каждой кнопки есть подсказка!</value>
+  </data>
+  <data name="PathNotExistS" xml:space="preserve">
+    <value>Путь не существует</value>
+  </data>
 </root>
