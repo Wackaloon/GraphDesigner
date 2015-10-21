@@ -20,7 +20,8 @@ namespace GraphDesigner
             confugureComboBox(comboBox2);
             confugureComboBox(comboBox3);
             confugureComboBox(comboBox4);
-            
+            confugureComboBox(comboBox5);
+
         }
 
         private void confugureComboBox(ComboBox combo)
@@ -73,6 +74,8 @@ namespace GraphDesigner
                 Settings.Default.ShortPathEdgeColor = Color.FromName(comboBox3.Text);
             if (comboBox4.SelectedIndex >= 0)
                 Settings.Default.ShortPathNodeColor = Color.FromName(comboBox4.Text);
+            if (comboBox4.SelectedIndex >= 0)
+                Settings.Default.NodeSelectedColor = Color.FromName(comboBox5.Text);
 
             Settings.Default.Save();
 
@@ -98,6 +101,10 @@ namespace GraphDesigner
             index = comboBox4.Items.IndexOf(name);
             comboBox4.SelectedIndex = index;
 
+            name = Settings.Default.NodeSelectedColor.Name;
+            index = comboBox5.Items.IndexOf(name);
+            comboBox5.SelectedIndex = index;
+
         }
 
         private void switchLanguage(string language)
@@ -111,6 +118,7 @@ namespace GraphDesigner
             labelEdge.Text = resourceManager.GetString("edgeColorS", cultureInfo);
             labelEdgeShort.Text = resourceManager.GetString("shortEdgeColorS", cultureInfo);
             labelNodeShort.Text = resourceManager.GetString("shortNodeColorS", cultureInfo);
+            labelNodeSelected.Text = resourceManager.GetString("nodeSelectedColorS", cultureInfo);
             buttonAccept.Text = resourceManager.GetString("AcceptS", cultureInfo);
             this.Text = resourceManager.GetString("OptionsS", cultureInfo);
         }

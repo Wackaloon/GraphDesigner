@@ -59,12 +59,14 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.addBox = new System.Windows.Forms.GroupBox();
             this.deleteBox = new System.Windows.Forms.GroupBox();
-            this.labelInfo = new System.Windows.Forms.Label();
-            this.labelInfoStatic = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelStatic = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.addBox.SuspendLayout();
             this.deleteBox.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAddNode
@@ -318,30 +320,35 @@
             this.deleteBox.TabStop = false;
             this.deleteBox.Text = "Delete";
             // 
-            // labelInfo
+            // statusStrip1
             // 
-            this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(1005, 638);
-            this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(0, 13);
-            this.labelInfo.TabIndex = 14;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelStatic,
+            this.toolStripStatusLabelInfo});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 657);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1195, 22);
+            this.statusStrip1.TabIndex = 16;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // labelInfoStatic
+            // toolStripStatusLabelStatic
             // 
-            this.labelInfoStatic.AutoSize = true;
-            this.labelInfoStatic.Location = new System.Drawing.Point(999, 622);
-            this.labelInfoStatic.Name = "labelInfoStatic";
-            this.labelInfoStatic.Size = new System.Drawing.Size(25, 13);
-            this.labelInfoStatic.TabIndex = 15;
-            this.labelInfoStatic.Text = "Info";
+            this.toolStripStatusLabelStatic.Name = "toolStripStatusLabelStatic";
+            this.toolStripStatusLabelStatic.Size = new System.Drawing.Size(84, 17);
+            this.toolStripStatusLabelStatic.Text = "staticInfoLabel";
+            // 
+            // toolStripStatusLabelInfo
+            // 
+            this.toolStripStatusLabelInfo.Name = "toolStripStatusLabelInfo";
+            this.toolStripStatusLabelInfo.Size = new System.Drawing.Size(56, 17);
+            this.toolStripStatusLabelInfo.Text = "infoLabel";
             // 
             // AgeichenkoTestTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1195, 664);
-            this.Controls.Add(this.labelInfoStatic);
-            this.Controls.Add(this.labelInfo);
+            this.ClientSize = new System.Drawing.Size(1195, 679);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.deleteBox);
             this.Controls.Add(this.addBox);
             this.Controls.Add(this.buttonShortWay);
@@ -359,6 +366,8 @@
             this.menuStrip1.PerformLayout();
             this.addBox.ResumeLayout(false);
             this.deleteBox.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,8 +404,9 @@
         private System.Windows.Forms.ToolStripMenuItem russianToolStripMenuItem;
         private System.Windows.Forms.GroupBox addBox;
         private System.Windows.Forms.GroupBox deleteBox;
-        private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.Label labelInfoStatic;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelStatic;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelInfo;
     }
 }
 

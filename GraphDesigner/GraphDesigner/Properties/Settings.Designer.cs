@@ -81,5 +81,17 @@ namespace GraphDesigner.Properties {
                 return ((string)(this["GraphDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Olive")]
+        public global::System.Drawing.Color NodeSelectedColor {
+            get {
+                return ((global::System.Drawing.Color)(this["NodeSelectedColor"]));
+            }
+            set {
+                this["NodeSelectedColor"] = value;
+            }
+        }
     }
 }

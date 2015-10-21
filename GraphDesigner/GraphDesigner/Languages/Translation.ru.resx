@@ -237,4 +237,7 @@
   <data name="PathNotExistS" xml:space="preserve">
     <value>Путь не существует</value>
   </data>
+  <data name="nodeSelectedColorS" xml:space="preserve">
+    <value>Цвет выделенной вершины</value>
+  </data>
 </root>

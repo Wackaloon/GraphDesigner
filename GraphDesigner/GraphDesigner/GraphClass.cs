@@ -17,6 +17,7 @@ namespace GraphDesigner
         private Color edgeColor;
         private Color shortPathEdgeColor;
         private Color shortPathNodeColor;
+        private Color nodeSelectedColor;
 
         private ShortestWayClass shortWay;
 
@@ -103,6 +104,19 @@ namespace GraphDesigner
             }
         }
 
+        public Color NodeSelectedColor
+        {
+            get
+            {
+                return nodeSelectedColor;
+            }
+
+            set
+            {
+                nodeSelectedColor = value;
+            }
+        }
+
         public GraphClass()
         {
             GraphNodes = new List<NodeClass>();
@@ -147,7 +161,7 @@ namespace GraphDesigner
         public bool addNode(Point position)
         {
             // add new node if click place was empty
-            NodeClass newNode = whichNodeWasClicked(position);
+            NodeClass newNode = whichNodeWasClicked(position, true);
             if (newNode == null)
             {
                 newNode = new NodeClass(position, nodeNumberCounter++);
@@ -213,12 +227,12 @@ namespace GraphDesigner
         /* =================== END Functions for editing graph  =================== */
 
         /* **************** Functions for click position determinating  **************************/
-        public NodeClass whichNodeWasClicked(Point click)
+        public NodeClass whichNodeWasClicked(Point click, bool withFreedomRadius = false)
         {
             //find which node was clicked by its position
             foreach (NodeClass node in GraphNodes)
             {
-                if (node.nodeWasClicked(click))
+                if (node.nodeWasClicked(click, withFreedomRadius))
                     return node;
             }
             return null;

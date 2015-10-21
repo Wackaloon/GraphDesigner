@@ -126,7 +126,7 @@ namespace GraphDesigner
             {
                 nodeClickedFirst = graph.whichNodeWasClicked(new Point(e.X, e.Y));
                 if (nodeClickedFirst != null)
-                    nodeClickedFirst.drawNode(paintBox, Color.Black, Color.Green);
+                    nodeClickedFirst.drawNode(paintBox, Color.Black, graph.NodeSelectedColor);
             }
             else
             {
@@ -134,7 +134,7 @@ namespace GraphDesigner
                 {
                     nodeClickedSecond = graph.whichNodeWasClicked(new Point(e.X, e.Y));
                     if (nodeClickedSecond != null)
-                        nodeClickedSecond.drawNode(paintBox, Color.Black, Color.Green);
+                        nodeClickedSecond.drawNode(paintBox, Color.Black, graph.NodeSelectedColor);
                 }
             }
 
@@ -148,9 +148,13 @@ namespace GraphDesigner
                         break;
 
                     case stateEnum.stageShortWayFinding:
-                        if(!graph.shortPathCalculation(nodeClickedFirst, nodeClickedSecond));
-                            infoUpdate("PathNotExistS");
-                        break;
+
+                            if (!graph.shortPathCalculation(nodeClickedFirst, nodeClickedSecond)) 
+                                infoUpdate("PathNotExistS");
+                            else
+                                infoUpdate("InfoTextDefaultS");
+                            break;
+ 
                 }
 
                 nodeClickedFirst = null;
@@ -235,6 +239,7 @@ namespace GraphDesigner
             graph.EdgeColor = Settings.Default.EdgeColor;
             graph.ShortPathEdgeColor = Settings.Default.ShortPathEdgeColor;
             graph.ShortPathNodeColor = Settings.Default.ShortPathNodeColor;
+            graph.NodeSelectedColor = Settings.Default.NodeSelectedColor;
         }
 
         private void AgeichenkoTestTask_Load(object sender, EventArgs e)
@@ -313,8 +318,8 @@ namespace GraphDesigner
             toolTip.SetToolTip(buttonDeleteNode, resourceManager.GetString("notdeleteNodeS", cultureInfo));
             toolTip.SetToolTip(buttonShortWay, resourceManager.GetString("notfindShortPathS", cultureInfo));
 
-            labelInfoStatic.Text = resourceManager.GetString("InfoLabelS", cultureInfo);
-            labelInfo.Text = resourceManager.GetString("InfoTextDefaultS", cultureInfo);
+            toolStripStatusLabelStatic.Text = resourceManager.GetString("InfoLabelS", cultureInfo);
+            toolStripStatusLabelInfo.Text = resourceManager.GetString("InfoTextDefaultS", cultureInfo);
         }
 
         private void infoUpdate(string infoString)
@@ -323,7 +328,7 @@ namespace GraphDesigner
             Assembly assemble = Assembly.Load("GraphDesigner");
             ResourceManager resourceManager = new ResourceManager("GraphDesigner.Languages.Translation", assemble);
             CultureInfo cultureInfo = new CultureInfo(currentLanguage);
-            labelInfo.Text = resourceManager.GetString(infoString, cultureInfo);
+            toolStripStatusLabelInfo.Text = resourceManager.GetString(infoString, cultureInfo);
         }
         /* ++++++++++++++++++++++ END language settings ++++++++++++++++++++++++++++++++*/
     }

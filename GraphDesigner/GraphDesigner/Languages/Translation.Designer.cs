@@ -286,6 +286,15 @@ namespace GraphDesigner.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Node selection color.
+        /// </summary>
+        internal static string nodeSelectedColorS {
+            get {
+                return ResourceManager.GetString("nodeSelectedColorS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click two nodes one by one and new edge will appear!.
         /// </summary>
         internal static string notaddEdgeS {

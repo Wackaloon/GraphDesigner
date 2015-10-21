@@ -17,6 +17,8 @@ namespace GraphDesigner
 
         private const int sizeOfNode = 30;
 
+        private const double radiusOfFreedom = 1.15;
+
         public int NodeNumber
         {
             get
@@ -96,7 +98,7 @@ namespace GraphDesigner
             placeWhereShowIt.DrawString(drawString, drawFont, drawBrush, drawPoint);
         }
 
-        public bool nodeWasClicked(Point click)
+        public bool nodeWasClicked(Point click, bool withFreedomRadius)
         {
             // find distance between this node and click point
             int xMiss = this.nodePosition.X - click.X;
@@ -105,7 +107,11 @@ namespace GraphDesigner
             yMiss = yMiss * yMiss; //                    (int)Math.Pow(yMiss, 2);
             int result = (int)Math.Sqrt(xMiss + yMiss);
 
-            return (result < sizeOfNode/2) ? true : false;
+            // 15% of node's size is radius of freedom
+            if(withFreedomRadius)
+                return (result < sizeOfNode * radiusOfFreedom) ? true : false;
+            else
+                return (result < sizeOfNode) ? true : false;
         }
 
 

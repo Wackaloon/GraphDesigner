@@ -240,4 +240,7 @@
   <data name="PathNotExistS" xml:space="preserve">
     <value>Path do not exist</value>
   </data>
+  <data name="nodeSelectedColorS" xml:space="preserve">
+    <value>Node selection color</value>
+  </data>
 </root>

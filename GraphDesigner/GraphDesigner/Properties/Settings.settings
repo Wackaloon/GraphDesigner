@@ -22,5 +22,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=(LocalDB)\\v11.0;AttachDbFilename=|DataDirectory|\GraphDB.mdf;Integrated Security=True</Value>
     </Setting>
+    <Setting Name="NodeSelectedColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Olive</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

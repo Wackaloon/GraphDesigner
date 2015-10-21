@@ -37,6 +37,8 @@
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.labelNodeShort = new System.Windows.Forms.Label();
             this.buttonAccept = new System.Windows.Forms.Button();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.labelNodeSelected = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelNode
@@ -113,7 +115,7 @@
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(107, 190);
+            this.buttonAccept.Location = new System.Drawing.Point(107, 255);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(75, 23);
             this.buttonAccept.TabIndex = 8;
@@ -121,11 +123,30 @@
             this.buttonAccept.UseVisualStyleBackColor = true;
             this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
             // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(12, 190);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(170, 21);
+            this.comboBox5.TabIndex = 10;
+            // 
+            // labelNodeSelected
+            // 
+            this.labelNodeSelected.AutoSize = true;
+            this.labelNodeSelected.Location = new System.Drawing.Point(12, 174);
+            this.labelNodeSelected.Name = "labelNodeSelected";
+            this.labelNodeSelected.Size = new System.Drawing.Size(35, 13);
+            this.labelNodeSelected.TabIndex = 9;
+            this.labelNodeSelected.Text = "label5";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(194, 225);
+            this.ClientSize = new System.Drawing.Size(194, 290);
+            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.labelNodeSelected);
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.comboBox4);
             this.Controls.Add(this.labelNodeShort);
@@ -154,5 +175,7 @@
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Label labelNodeShort;
         private System.Windows.Forms.Button buttonAccept;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.Label labelNodeSelected;
     }
 }
