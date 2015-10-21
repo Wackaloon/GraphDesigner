@@ -19,6 +19,8 @@ namespace GraphDesigner
         [field: NonSerialized()]
         private SqlDataReader sqlDataReader;
 
+        private string connStr;
+
         public SqlHandlerClass()
         {
             sqlCommand = new SqlCommand();
@@ -27,7 +29,10 @@ namespace GraphDesigner
              Initial Catalog - DB name
              Integrated Security - something important
              */
-            string connStr = @"Data Source=(LocalDB)\v11.0;Initial Catalog=GraphDBv11;Integrated Security=True";
+            //string connStr = @"Data Source=(LocalDB)\v11.0;Initial Catalog=GraphDBv11;Integrated Security=True";
+            connStr = @"Data Source=(localdb)\v11.0;" +
+                @"AttachDbFilename=F:\C#_Projects\SoftTechTestTaskAgeychenko\GraphDesigner\GraphDesigner\GraphDesigner\GraphDBv11.mdf;" +
+                @"Integrated Security=True;";
             // is this data base exist?
             sqlConnect = new SqlConnection(connStr);
             try
@@ -36,6 +41,7 @@ namespace GraphDesigner
             }
             catch (SqlException existanceE)
             {
+                /*
                 // if DB was not found
                 if (existanceE.Number == 4060)
                 {
@@ -90,7 +96,8 @@ namespace GraphDesigner
                 {
                     MessageBox.Show("Error: Unexpected error Original error: " + existanceE.Message);
                 }
-
+                */
+                MessageBox.Show("Error: Unexpected error Original error: " + existanceE.Message);
             }
             finally
             {
@@ -108,7 +115,7 @@ namespace GraphDesigner
             int NodeX = 0;
             int NodeY = 0;
             
-            string connStr = @"Data Source=(LocalDB)\v11.0;Initial Catalog=GraphDBv11;Integrated Security=True";
+            //string connStr = @"Data Source=(LocalDB)\v11.0;Initial Catalog=GraphDBv11;Integrated Security=True";
             // is this data base exist?
             sqlConnect = new SqlConnection(connStr);
             try
@@ -179,6 +186,7 @@ namespace GraphDesigner
             try
             {
                 sqlConnect.Open();
+                sqlCommand.Connection = sqlConnect;
             }
             catch (Exception ex)
             {
