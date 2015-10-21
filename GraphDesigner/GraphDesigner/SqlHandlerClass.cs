@@ -31,7 +31,7 @@ namespace GraphDesigner
              */
             //string connStr = @"Data Source=(LocalDB)\v11.0;Initial Catalog=GraphDBv11;Integrated Security=True";
             connStr = @"Data Source=(localdb)\v11.0;" +
-                @"AttachDbFilename=F:\C#_Projects\SoftTechTestTaskAgeychenko\GraphDesigner\GraphDesigner\GraphDesigner\GraphDBv11.mdf;" +
+                @"AttachDbFilename=" + Application.StartupPath + "\\GraphDBv11.mdf;" +
                 @"Integrated Security=True;";
             // is this data base exist?
             sqlConnect = new SqlConnection(connStr);
@@ -91,6 +91,17 @@ namespace GraphDesigner
                         MessageBox.Show("Error: Unable to create a table in the database. Original error: " + createTableE.Message);
                     }
 
+                }
+                else
+                {
+                    MessageBox.Show("Error: Unexpected error Original error: " + existanceE.Message);
+                }
+                
+                if (existanceE.Number == 15350)
+                {
+                   // connStr = @"Data Source=(localdb)\v11.0;" +
+                    //        @"AttachDbFilename=" + Application.StartupPath + "\\GraphDBv11.mdf;" +
+                    //        @"Integrated Security=True;";
                 }
                 else
                 {
