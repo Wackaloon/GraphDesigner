@@ -330,6 +330,11 @@ namespace GraphDesigner
             CultureInfo cultureInfo = new CultureInfo(currentLanguage);
             toolStripStatusLabelInfo.Text = resourceManager.GetString(infoString, cultureInfo);
         }
+
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
         /* ++++++++++++++++++++++ END language settings ++++++++++++++++++++++++++++++++*/
     }
 }
