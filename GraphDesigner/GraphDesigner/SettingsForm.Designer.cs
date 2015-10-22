@@ -130,6 +130,7 @@
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(170, 21);
             this.comboBox5.TabIndex = 10;
+            this.comboBox5.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_DrawItem);
             // 
             // labelNodeSelected
             // 
