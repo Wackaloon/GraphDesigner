@@ -25,15 +25,15 @@ namespace GraphDesigner
         {
             sqlCommand = new SqlCommand();
             /*
-             Data Source - server name, by default (local)\SQLEXPRESS
+             Data Source - server name, by default (local)\SQLEXPRESS for sql2014 BUT! for sql 2012 (LocalDB)\v11.0
              Initial Catalog - DB name
              Integrated Security - something important
              */
-            //string connStr = @"Data Source=(LocalDB)\v11.0;Initial Catalog=GraphDBv11;Integrated Security=True";
             connStr = @"Data Source=(localdb)\v11.0;" +
                 @"AttachDbFilename=" + Application.StartupPath + "\\GraphDBv11.mdf;" +
                 @"Integrated Security=True;";
-            // is this data base exist?
+
+            // is this database availible?
             sqlConnect = new SqlConnection(connStr);
             try
             {
@@ -41,73 +41,6 @@ namespace GraphDesigner
             }
             catch (SqlException existanceE)
             {
-                /*
-                // if DB was not found
-                if (existanceE.Number == 4060)
-                {
-
-                    sqlConnect.Close();
-
-                    sqlConnect = new SqlConnection(@"Data Source=(LocalDB)\v11.0;
-                                                    Integrated Security=True");
-                    // DB creating request
-                    SqlCommand cmdCreateDataBase = new SqlCommand(string.Format("CREATE DATABASE [{0}]", "GraphDBv11"), sqlConnect);
- 
-                    sqlConnect.Open();
-
-                    cmdCreateDataBase.ExecuteNonQuery();
-
-                    sqlConnect.Close();
-                    //wait DB to be created
-                    Thread.Sleep(5000);
-                    sqlConnect = new SqlConnection(connStr);
-                    try
-                    {
-                        sqlConnect.Open();
-                    }
-                    catch (SqlException openE)
-                    {
-                        MessageBox.Show("Error: Unable to open database. Original error: " + openE.Message);
-                    }
-
-                    //request for table creation
-                    SqlCommand cmdCreateTableEdges = new SqlCommand("CREATE TABLE " +
-                                                                    "Edges (EdgeId int not null" +
-                                                                    ", EdgeParent int not null," +
-                                                                    "  EdgeDestination int not null)", sqlConnect);
-
-                    SqlCommand cmdCreateTableNodes = new SqlCommand("CREATE TABLE " +
-                                                                    "Nodes (NodeId int not null" +
-                                                                    ", NodeX int not null," +
-                                                                    "  NodeY int not null)", sqlConnect);
-                    //send request
-                    try
-                    {
-                        cmdCreateTableEdges.ExecuteNonQuery();
-                        cmdCreateTableNodes.ExecuteNonQuery();
-                    }
-                    catch (SqlException createTableE)
-                    {
-                        MessageBox.Show("Error: Unable to create a table in the database. Original error: " + createTableE.Message);
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show("Error: Unexpected error Original error: " + existanceE.Message);
-                }
-                
-                if (existanceE.Number == 15350)
-                {
-                   // connStr = @"Data Source=(localdb)\v11.0;" +
-                    //        @"AttachDbFilename=" + Application.StartupPath + "\\GraphDBv11.mdf;" +
-                    //        @"Integrated Security=True;";
-                }
-                else
-                {
-                    MessageBox.Show("Error: Unexpected error Original error: " + existanceE.Message);
-                }
-                */
                 MessageBox.Show("Error: Unexpected error Original error: " + existanceE.Message);
             }
             finally

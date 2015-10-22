@@ -45,7 +45,7 @@ namespace GraphDesigner
             // d - minimum weights of ways to other nodes
             // u - marks of visited nodes
             // p - parent of each node, its necessary for back way finding
-            d[fromThis.NodeNumber] = 0;
+            d[graph.findNodeIndexByNodeNumber(fromThis.NodeNumber)] = 0;
 
 
             for (int i = 0; i < sizeOfNodes; ++i)
@@ -77,7 +77,7 @@ namespace GraphDesigner
                      (v != graph.findNodeIndexByNodeNumber(fromThis.NodeNumber))&&(v >= 0)&&(p[v] >= 0);
                      v = p[v])
                 path.Add(v);
-            path.Add(fromThis.NodeNumber);
+            path.Add(graph.findNodeIndexByNodeNumber(fromThis.NodeNumber));
             path.Reverse();
 
             return path;

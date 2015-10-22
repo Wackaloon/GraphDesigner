@@ -352,7 +352,6 @@ namespace GraphDesigner
 
         private void drawShortPath(ArrayList path)
         {
-            int pos = 0;
             shortPath = new List<NodeClass>();
             Pen pen = new Pen(shortPathEdgeColor);
             pen.Width = 3;
@@ -360,8 +359,7 @@ namespace GraphDesigner
             // make list of nodes in short path
             for (int k = 0; k < path.Count; ++k)
             {
-                pos = (int)path[k];
-                shortPath.Add(graphNodes[pos]);
+                shortPath.Add( graphNodes[ (int)path[k] ] );
             }
 
             // draw that list
