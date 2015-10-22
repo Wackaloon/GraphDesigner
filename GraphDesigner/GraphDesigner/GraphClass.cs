@@ -23,6 +23,9 @@ namespace GraphDesigner
 
         private int nodeNumberCounter;
 
+        // distance from click point to edge must be less than this
+        private const int edgeRadiusToDelete = 8;
+
         [field: NonSerialized()]
         Graphics graphic;
 
@@ -141,7 +144,7 @@ namespace GraphDesigner
 
         public bool deleteEdge(Point position)
         {
-            // delete if some edge was clicked
+            // if some edge was clicked - delete it
             EdgeClass deleteEdge = whichEdgeWasClicked(position);
             if (deleteEdge != null)
             {  
@@ -177,7 +180,7 @@ namespace GraphDesigner
 
         public void addNode(Point position, int NodeId)
         {
-            // add node by it's id (used in load function)
+            // add node by it's id (used in "load from..." functions)
             NodeClass newNode = new NodeClass(position, NodeId);
             addNodeToList(newNode);
             drawGraph();
@@ -259,7 +262,7 @@ namespace GraphDesigner
                     range = Math.Abs((B.Y - C.Y) * A.X + (C.X - B.X) * A.Y + (B.X * C.Y - C.X * B.Y))
                           / Math.Sqrt((B.Y - C.Y) * (B.Y - C.Y) + (C.X - B.X) * (C.X - B.X));
 
-                    if (range < 8)
+                    if (range < edgeRadiusToDelete)
                         return edge;
                 }
             }
@@ -295,6 +298,9 @@ namespace GraphDesigner
             return true;
         }
 
+        // maybe it was not so good idea to use adjacency lists with node
+        // numbers separate from their indexes in list, but it's good when 
+        // you add\delete nodes many times.
         public int findNodeIndexByNodeNumber(int nodeNumber)
         {
             for (int i = 0; i < graphNodes.Count; ++i)

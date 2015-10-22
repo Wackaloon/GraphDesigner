@@ -107,8 +107,8 @@ namespace GraphDesigner
             yMiss = yMiss * yMiss; //                    (int)Math.Pow(yMiss, 2);
             int result = (int)Math.Sqrt(xMiss + yMiss);
 
-            // 15% of node's size is radius of freedom
-            if(withFreedomRadius)
+            // 15% of node's size is radius of freedom, it's forbidden to create new nodes in this area
+            if (withFreedomRadius)
                 return (result < sizeOfNode * radiusOfFreedom) ? true : false;
             else
                 return (result < sizeOfNode) ? true : false;

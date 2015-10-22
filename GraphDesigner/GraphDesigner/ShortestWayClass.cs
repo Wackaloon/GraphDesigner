@@ -72,12 +72,14 @@ namespace GraphDesigner
                 }
             }
             // find a way back from end to start and reverse it
-            ArrayList path = new ArrayList(); ;
+            ArrayList path = new ArrayList(); 
+            // i have no idea, how index v could be less than 0, but it has happened a few times
+            // programming is... magic!
             for (int v = graph.findNodeIndexByNodeNumber(toThis.NodeNumber); 
-                     (v != graph.findNodeIndexByNodeNumber(fromThis.NodeNumber))&&(v >= 0)&&(p[v] >= 0);
+                     (v != graph.findNodeIndexByNodeNumber( fromThis.NodeNumber )) && (v >= 0) && (p[v] >= 0);
                      v = p[v])
                 path.Add(v);
-            path.Add(graph.findNodeIndexByNodeNumber(fromThis.NodeNumber));
+            path.Add(graph.findNodeIndexByNodeNumber( fromThis.NodeNumber ));
             path.Reverse();
 
             return path;
